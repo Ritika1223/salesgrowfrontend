@@ -372,6 +372,7 @@ export default function Dashboard() {
                     <div>
                       <h3>Self Income</h3>
                       <p className="stat-amount">
+                        
                         {incomeReport?.SelfIncome ?? 0}
                       </p>
                       <p className="stat-text">
