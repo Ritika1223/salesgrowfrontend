@@ -1,0 +1,391 @@
+/*
+  Applies theme.css on top of older styles.
+  Do not put raw brand colors here. Change them in theme.css.
+*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+body,
+#root,
+.app,
+.app > main {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+aside.sidebar {
+  background: var(--color-surface) !important;
+  border-right: 1px solid var(--color-line) !important;
+  width: 270px !important;
+  box-shadow: none !important;
+}
+
+.brand {
+  background: var(--color-gradient);
+  border-radius: 16px;
+  padding: 10px 12px;
+}
+
+.brand img,
+.cp-mobile-sidebar-topbar img {
+  width: 160px;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+.nav a {
+  color: var(--color-text) !important;
+  border-radius: 12px !important;
+}
+
+.nav a:hover {
+  background: var(--color-bg-soft) !important;
+  color: var(--color-accent) !important;
+}
+
+.nav a .ico,
+.bottom-nav .nav-btn .ico {
+  color: var(--color-primary) !important;
+  background: var(--color-pale) !important;
+  border-color: transparent !important;
+}
+
+.nav a.active {
+  background: var(--color-pale) !important;
+  color: var(--color-accent) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.nav a.active .ico {
+  background: var(--color-gradient) !important;
+  color: #fff !important;
+}
+
+.bottom-nav,
+.bottom-nav .bar {
+  background: var(--color-nav) !important;
+}
+
+.bottom-nav .nav-btn {
+  color: #a5b4fc !important;
+}
+
+.bottom-nav .nav-btn .ico {
+  background: transparent !important;
+  color: #a5b4fc !important;
+  border-color: transparent !important;
+}
+
+.bottom-nav .nav-btn.active,
+.bottom-nav .nav-btn.active .ico {
+  color: #fff !important;
+  background: transparent !important;
+}
+
+.app > main,
+.app > main h1,
+.app > main h2,
+.app > main h3,
+.app > main h4,
+.app > main h5,
+.app > main p,
+.app > main span,
+.app > main label,
+.app > main li,
+.app > main td,
+.app > main th,
+.app > main strong,
+.app > main small {
+  color: var(--color-ink);
+}
+
+.app > main .prox-live-navbar-subtitle,
+.app > main .muted,
+.app > main small {
+  color: var(--color-muted) !important;
+}
+
+.app > main,
+.app > main .cpx-ultra-dashboard,
+.app > main .wallet-page,
+.app > main .refx-page,
+.app > main .income-history-page,
+.app > main .modern-plans-page,
+.app > main .plans-page,
+.app > main .chatprox-profile-page {
+  background: var(--color-bg) !important;
+}
+
+.app > main .cpx-premium-card,
+.app > main .cpx-pool-card,
+.app > main .cpx-ultra-hero,
+.app > main .income-history-card,
+.app > main .wallet-main-card,
+.app > main .modern-plan-card,
+.app > main .neo-card,
+.app > main .stat,
+.app > main .stat-green,
+.app > main .stat-blue,
+.app > main .stat-purple,
+.app > main .stat-orange,
+.app > main .stat-pink,
+.app > main .stat-brown,
+.app > main .stat-cyan,
+.app > main .stat-red,
+.app > main .refx-stat-box,
+.app > main .refx-main-card,
+.app > main .refx-step-box,
+.app > main .refx-history-item,
+.app > main .info-card,
+.app > main .champion-card,
+.app > main .rank-item,
+.app > main .income-history-table,
+.wallet-modal-box,
+.cpx-coin-inner {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-line) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1) !important;
+  color: var(--color-ink) !important;
+}
+
+.cpx-ultra-glow,
+.wallet-card-glow,
+.neo-card-bg {
+  opacity: 0.35;
+}
+
+.cpx-ultra-glow.one,
+.wallet-card-glow.one {
+  background: var(--color-peri) !important;
+}
+
+.cpx-ultra-glow.two,
+.wallet-card-glow.two,
+.neo-card-bg.purple {
+  background: var(--color-primary) !important;
+}
+
+.app > main .prox-live-gradient-btn,
+.app > main .cpx-main-btn,
+.app > main .neo-btn,
+.app > main .wallet-add-btn,
+.app > main .cp-save-btn,
+.app > main .cp-upload-btn,
+.app > main .refx-copy-action,
+.app > main .refx-dashboard-btn,
+.app > main .income-pagination button.active,
+.app > main .btn {
+  background: var(--color-gradient) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.16) !important;
+}
+
+.app > main .prox-live-outline-btn {
+  background: var(--color-surface) !important;
+  color: var(--color-accent) !important;
+  border: 1px solid var(--color-line) !important;
+  border-radius: 999px !important;
+}
+
+.app > main table,
+.app > main .income-history-table {
+  background: var(--color-surface) !important;
+  color: var(--color-ink) !important;
+}
+
+.app > main input,
+.app > main select,
+.app > main textarea {
+  background: var(--color-bg-soft) !important;
+  color: var(--color-ink) !important;
+  border: 1px solid var(--color-line) !important;
+  border-radius: 12px !important;
+}
+
+/* Sign in / sign up — same split layout as LearnPro Hub */
+.sg-auth {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+.sg-auth-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  color: #fff;
+  background: var(--color-gradient);
+  position: relative;
+  overflow: hidden;
+}
+
+.sg-auth-panel::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  bottom: -140px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sg-auth-panel img {
+  width: 190px;
+  height: auto;
+  margin-bottom: 28px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.sg-auth-panel h1,
+.sg-auth-panel p {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+.sg-auth-panel h1 {
+  margin: 0 0 12px;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+}
+
+.sg-auth-panel p {
+  margin: 0;
+  max-width: 420px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.sg-auth-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: var(--color-bg);
+}
+
+.sg-auth-card {
+  width: min(420px, 100%);
+  background: var(--color-surface);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1);
+  padding: 28px 24px;
+}
+
+.sg-auth-card h2 {
+  margin: 0 0 4px;
+  color: var(--color-ink);
+  font-size: 26px;
+}
+
+.sg-auth-card .sg-lead {
+  margin: 0 0 20px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.sg-auth .app-form-group {
+  margin-bottom: 14px;
+}
+
+.sg-auth .app-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sg-auth .app-input-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  padding: 0 12px;
+}
+
+.sg-auth .app-input-box input {
+  flex: 1;
+  height: 48px;
+  border: 0 !important;
+  outline: 0;
+  background: transparent !important;
+  color: var(--color-ink) !important;
+  box-shadow: none !important;
+}
+
+.sg-auth .input-icon,
+.sg-auth .app-password-toggle {
+  color: var(--color-primary);
+  background: transparent;
+  border: 0;
+}
+
+.sg-auth .app-login-btn,
+.sg-auth .app-register-btn {
+  width: 100%;
+  height: 50px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-gradient) !important;
+  color: #fff !important;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.16);
+}
+
+.sg-auth .signup-text,
+.sg-auth .app-login-options {
+  margin-top: 16px;
+  color: var(--color-muted);
+}
+
+.sg-auth .signup-text a,
+.sg-auth .app-login-options a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.sg-auth-signup {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.sg-auth-signup .sg-auth-panel {
+  order: 2;
+}
+
+@media (max-width: 860px) {
+  .sg-auth,
+  .sg-auth-signup {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-auth-panel {
+    padding: 28px 20px;
+  }
+
+  .sg-auth-signup .sg-auth-panel {
+    order: 0;
+  }
+}
