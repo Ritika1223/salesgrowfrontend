@@ -10,7 +10,7 @@ function trimTrailingSlashes(s) {
 }
 
 export const API_BASE = trimTrailingSlashes(
-  process.env.REACT_APP_API_BASE || "https://api.chatprox.tech"
+  process.env.REACT_APP_API_BASE || "https://salesgrowbackend.onrender.com"
 );
 
 export const API_AUTH = `${API_BASE}/auth`;
