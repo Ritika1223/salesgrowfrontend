@@ -62,7 +62,7 @@ aside.sidebar {
 
 .nav a.active .ico {
   background: var(--color-gradient) !important;
-  color: #fff !important;
+  color: #000 !important;
 }
 
 .bottom-nav,
@@ -99,14 +99,15 @@ aside.sidebar {
 .app > main td,
 .app > main th,
 .app > main strong,
-.app > main small {
-  color: var(--color-ink);
+.app > main small,
+.app > main a {
+  color: #000 !important;
 }
 
 .app > main .prox-live-navbar-subtitle,
 .app > main .muted,
 .app > main small {
-  color: var(--color-muted) !important;
+  color: #222 !important;
 }
 
 .app > main,
@@ -171,6 +172,7 @@ aside.sidebar {
 }
 
 .app > main .prox-live-gradient-btn,
+.app > main .prox-live-gradient-btn i,
 .app > main .cpx-main-btn,
 .app > main .neo-btn,
 .app > main .wallet-add-btn,
@@ -179,9 +181,12 @@ aside.sidebar {
 .app > main .refx-copy-action,
 .app > main .refx-dashboard-btn,
 .app > main .income-pagination button.active,
-.app > main .btn {
+.app > main .btn,
+.app > main .modern-buy-btn,
+.app > main .modern-buy-btn i,
+.app > main .modern-buy-btn span {
   background: var(--color-gradient) !important;
-  color: #fff !important;
+  color: #000 !important;
   border: 0 !important;
   border-radius: 999px !important;
   box-shadow: 0 8px 24px rgba(76, 29, 149, 0.16) !important;
@@ -202,11 +207,31 @@ aside.sidebar {
 
 .app > main input,
 .app > main select,
-.app > main textarea {
-  background: var(--color-bg-soft) !important;
-  color: var(--color-ink) !important;
+.app > main textarea,
+.sg-auth input,
+.sg-auth textarea,
+.sg-auth select {
+  background: #fff !important;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+  caret-color: #000;
   border: 1px solid var(--color-line) !important;
   border-radius: 12px !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #000 !important;
+  caret-color: #000;
+  color: #000 !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  transition: background-color 9999s ease-out 0s;
 }
 
 /* Sign in / sign up — same split layout as LearnPro Hub */
@@ -326,9 +351,20 @@ aside.sidebar {
   height: 48px;
   border: 0 !important;
   outline: 0;
-  background: transparent !important;
-  color: var(--color-ink) !important;
+  background: #fff !important;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+  caret-color: #000;
   box-shadow: none !important;
+}
+
+.sg-auth input:-webkit-autofill,
+.sg-auth input:-webkit-autofill:hover,
+.sg-auth input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000 !important;
+  color: #000 !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
 }
 
 .sg-auth .input-icon,
@@ -346,7 +382,7 @@ aside.sidebar {
   border: 0;
   border-radius: 999px;
   background: var(--color-gradient) !important;
-  color: #fff !important;
+  color: #000 !important;
   font-weight: 700;
   display: flex;
   align-items: center;
