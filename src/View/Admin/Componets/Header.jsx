@@ -121,7 +121,7 @@ export default function Header() {
             <div
               className="cp-mobile-sidebar-topbar"
             >
-              <img src="/images/salesgrow.png" alt="SalesGrow" />
+              {/* <img src="/images/salesgrow.png" alt="SalesGrow" /> */}
               <button
                 aria-label="Close menu"
                 onClick={() => setSidebarOpen(false)}
@@ -129,9 +129,32 @@ export default function Header() {
               >✕</button>
             </div>
           )}
-          <div className="brand">
+          {/* <div className="brand">
             <img src="/images/salesgrow.png" alt="SalesGrow" />
+          </div> */}
+          <div
+            className="brand"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '24px 0'
+            }}
+          >
+            <span
+              className="project-name"
+              style={{
+                color: '#fff',
+                fontWeight: 'bold',
+                fontSize: '1.5rem',
+                textAlign: 'center',
+                letterSpacing: '1px'
+              }}
+            >
+              SalesGrow
+            </span>
           </div>
+     
           <nav className="nav">
             {renderNavLinks()}
           </nav>

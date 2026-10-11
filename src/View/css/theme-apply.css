@@ -425,3 +425,79 @@ select:-webkit-autofill {
     order: 0;
   }
 }
+
+/* Admin main content uses the same surfaces as the user pages */
+.app > main .admin-dashboard-section,
+.app > main .admin-users-page {
+  background: transparent !important;
+  color: #000 !important;
+}
+
+.app > main .users-header-card,
+.app > main .stats-card,
+.app > main .users-table-card,
+.app > main .dashboard-header {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-line) !important;
+  color: #000 !important;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1) !important;
+}
+
+.app > main .users-header-card h2,
+.app > main .users-header-card p,
+.app > main .stats-card h2,
+.app > main .stats-card h6,
+.app > main .dashboard-header h3,
+.app > main .dashboard-header p,
+.app > main .premium-table td,
+.app > main .premium-table th,
+.app > main .premium-table,
+.app > main .search-input,
+.app > main .search-wrapper i {
+  color: #000 !important;
+}
+
+.app > main .stats-card h2 {
+  color: var(--color-primary) !important;
+}
+
+.app > main .header-icon {
+  background: var(--color-gradient) !important;
+}
+
+.app > main .header-icon i {
+  color: #000 !important;
+}
+
+.app > main .search-input {
+  background: var(--color-bg-soft) !important;
+  border: 1px solid var(--color-line) !important;
+}
+
+.app > main .search-input::placeholder {
+  color: #333 !important;
+}
+
+.app > main .premium-table tbody tr {
+  background: var(--color-surface) !important;
+}
+
+.app > main .premium-table td {
+  border-bottom: 1px solid var(--color-line) !important;
+}
+
+.app > main .premium-table thead tr {
+  background: var(--color-pale) !important;
+}
+
+.app > main .premium-table thead th {
+  color: #000 !important;
+}
+
+.app > main .dashboard-btn,
+.app > main .admin-lab-btn {
+  background: var(--color-gradient) !important;
+  color: #000 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+}

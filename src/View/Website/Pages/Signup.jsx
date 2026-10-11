@@ -116,16 +116,15 @@ export default function Signup() {
   return (
 
     <div>
+      
 
       <div className="sg-auth sg-auth-signup">
-
+   
         <main className="sg-auth-main">
         <div className="sg-auth-card">
-          <h2>Create account</h2>
+          <h2>Create Account</h2>
           <p className="sg-lead">Join with a referral code and start your plan.</p>
-
           <form onSubmit={handleSubmit} className="app-register-form">
-
             {/* REFERRAL */}
             <div className="app-form-group">
               <label>Referral Code</label>
@@ -344,11 +343,11 @@ export default function Signup() {
         </div>
         </main>
 
-        <aside className="sg-auth-panel">
+        {/* <aside className="sg-auth-panel">
           <img src="/images/salesgrow.png" alt="SalesGrow" />
           <h1>Start growing</h1>
           <p>Subscriptions power self, direct, level, pool, rank, and VIP income.</p>
-        </aside>
+        </aside> */}
 
       </div>
 

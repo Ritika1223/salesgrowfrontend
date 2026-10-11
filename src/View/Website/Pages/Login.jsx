@@ -87,7 +87,7 @@ const [showPassword, setShowPassword] = useState(false);
   return (
 <div className="sg-auth">
   <aside className="sg-auth-panel">
-    <img src="/images/salesgrow.png" alt="SalesGrow" />
+    {/* <img src="/images/salesgrow.png" alt="SalesGrow" /> */}
     <h1>SalesGrow</h1>
     <p>Sign in to manage subscriptions, referrals, and income from one place.</p>
   </aside>

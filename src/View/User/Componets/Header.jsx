@@ -164,7 +164,7 @@ export default function Header() {
           className={`sidebar${isMobile ? ' mobile' : ''}${isMobile && !sidebarOpen ? ' hidden' : ''}`}
           data-open={isMobile ? (sidebarOpen ? "true" : "false") : undefined}
         >
-          {isMobile && (
+          {/* {isMobile && (
             <div
               className="cp-mobile-sidebar-topbar"
             >
@@ -175,11 +175,12 @@ export default function Header() {
                 className="cp-mobile-sidebar-close"
               >✕</button>
             </div>
-          )}
+          )} */}
 
-          <div className="brand">
+
+          {/* <div className="brand">
             <img src="/images/salesgrow.png" alt="SalesGrow" />
-          </div>
+          </div> */}
 
           {guest && (
             <div className="cp-guest-chip">
