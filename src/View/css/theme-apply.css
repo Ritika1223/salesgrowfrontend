@@ -65,6 +65,99 @@ aside.sidebar {
   color: #000 !important;
 }
 
+.nav-group-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  color: #000;
+  font-weight: 700;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.nav-group-label .bi-chevron-up,
+.nav-group-label .bi-chevron-down {
+  margin-left: auto;
+  background: transparent !important;
+  color: #000 !important;
+}
+
+.nav-group.open > .nav-group-label {
+  background: var(--color-pale) !important;
+  color: var(--color-accent) !important;
+  border-radius: 12px;
+}
+
+.nav-group.open > .nav-group-label .ico {
+  background: var(--color-gradient) !important;
+  color: #000 !important;
+}
+
+.nav-group-label .ico {
+  color: var(--color-primary);
+  background: var(--color-pale);
+  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-group-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 16px;
+}
+
+.fund-request-form {
+  max-width: 560px;
+}
+
+.fund-request-form .wallet-input,
+.fund-request-form label,
+.fund-request-form p {
+  color: #000 !important;
+}
+
+.fund-request-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 28px;
+  align-items: start;
+  max-width: none;
+}
+
+.fund-request-qr {
+  text-align: center;
+}
+
+.fund-request-qr .payment-qr {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.fund-request-layout .wallet-input,
+.fund-request-layout label,
+.fund-request-layout p,
+.fund-request-layout span {
+  color: #000 !important;
+}
+
+@media (max-width: 800px) {
+  .fund-request-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 .bottom-nav,
 .bottom-nav .bar {
   background: var(--color-nav) !important;
@@ -72,6 +165,9 @@ aside.sidebar {
 
 .bottom-nav .nav-btn {
   color: #a5b4fc !important;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .bottom-nav .nav-btn .ico {
@@ -184,7 +280,9 @@ aside.sidebar {
 .app > main .btn,
 .app > main .modern-buy-btn,
 .app > main .modern-buy-btn i,
-.app > main .modern-buy-btn span {
+.app > main .modern-buy-btn span,
+.app > main .wallet-submit-btn,
+.app > main .dashboard-btn {
   background: var(--color-gradient) !important;
   color: #000 !important;
   border: 0 !important;
@@ -334,6 +432,21 @@ select:-webkit-autofill {
   color: var(--color-ink);
   font-size: 14px;
   font-weight: 700;
+}
+
+.sg-ref-check {
+  margin: -2px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sg-ref-ok {
+  color: #15803d;
+}
+
+.sg-ref-bad {
+  color: #b91c1c;
 }
 
 .sg-auth .app-input-box {
@@ -500,4 +613,74 @@ select:-webkit-autofill {
   color: #000 !important;
   border: 0 !important;
   border-radius: 999px !important;
+}
+
+/* White cards: dark text. Dark theme panels: white text. */
+.app > main .profile-sidebar,
+.app > main .profile-content,
+.app > main .activity-section,
+.app > main .info-card,
+.app > main .stat-box,
+.app > main .profile-status,
+.cp-edit-modal,
+.crop-modal {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-line) !important;
+  color: #000 !important;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1) !important;
+}
+
+.app > main .info-card label,
+.app > main .info-card h4,
+.app > main .profile-sidebar h2,
+.app > main .profile-sidebar p,
+.app > main .profile-status,
+.cp-edit-modal,
+.cp-edit-modal h2,
+.cp-edit-modal label,
+.cp-edit-modal small,
+.cp-edit-modal p,
+.crop-modal,
+.crop-modal button {
+  color: #000 !important;
+}
+
+.cp-edit-modal input,
+.cp-edit-modal select,
+.cp-edit-modal textarea,
+.cp-edit-modal option,
+.app > main select,
+.app > main select option,
+.app > main input,
+.app > main textarea {
+  background: #fff !important;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+.cp-edit-close {
+  background: var(--color-pale) !important;
+  color: #000 !important;
+}
+
+/* Gradient and dark bars keep light text */
+.bottom-nav,
+.bottom-nav .nav-btn,
+.bottom-nav .nav-btn .ico,
+.sg-auth-panel,
+.sg-auth-panel h1,
+.sg-auth-panel h2,
+.sg-auth-panel p,
+.nav a.active .ico,
+.header-icon i {
+  color: #fff !important;
+}
+
+.app > main .prox-live-gradient-btn,
+.app > main .wallet-submit-btn,
+.app > main .modern-buy-btn,
+.app > main .cp-upload-btn,
+.app > main .dashboard-btn,
+.cp-upload-btn {
+  color: #000 !important;
 }

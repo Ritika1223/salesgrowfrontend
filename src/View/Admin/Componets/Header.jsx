@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
 function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
   React.useEffect(() => {
@@ -30,36 +29,31 @@ const NAV_LINKS = [
     label: "Bank Detail",
   },
   {
-    to: "admin/payment-history",
-    icon: <i className="bi bi-receipt"></i>,
-    label: "Payment History",
-  },
-  {
     to: "admin/add-fund",
     icon: <i className="bi bi-coin"></i>,
     label: "Add Fund",
   },
   {
-    to: "admin/plan-requests",
-    icon: <i className="bi bi-lightning-charge-fill"></i>,
-    label: "Plan Requests",
-  },
-  {
-    to: "admin/host-requests",
-    icon: <i className="bi bi-broadcast"></i>,
-    label: "Host Requests",
+    icon: <i className="bi bi-cash-coin"></i>,
+    label: "Fund",
+    children: [
+      {
+        to: "admin/fund/requests",
+        icon: <i className="bi bi-check2-square"></i>,
+        label: "Fund Requests",
+      },
+      {
+        to: "admin/fund/report",
+        icon: <i className="bi bi-file-earmark-text-fill"></i>,
+        label: "Fund Request Report",
+      },
+    ],
   },
 
   {
     to: "admin/users",
     icon: <i className="bi bi-person-circle"></i>,
     label: "All Users",
-  },
-
-  {
-    to: "admin/stickers",
-    icon: <i className="bi bi-box-seam-fill"></i>,
-    label: "Stickers",
   },
 
   {
@@ -73,40 +67,67 @@ const NAV_LINKS = [
 export default function Header() {
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openMenus, setOpenMenus] = useState(() => {
+    const path = window.location.pathname;
+    return path.startsWith("/admin/fund") ? { Fund: true } : {};
+  });
   const hrefFor = (to) => (to.startsWith("/") ? to : `/${to}`);
-  // Navigation rendering
-  const renderNavLinks = () =>
-    NAV_LINKS.map(({ to, icon, label, onClick }) => {
-      const isHash = to === "#";
-      let active = false;
-      if (!isHash) {
-        const windowPath = window.location.pathname.replace(/\/$/, "");
-        const linkPath = hrefFor(to).replace(/\/$/, "");
-        if (linkPath === "/dashboard") {
-          active = windowPath === linkPath;
-        } else {
-          active = windowPath.startsWith(linkPath);
-        }
-      }
 
+  const linkActive = (to) => {
+    if (!to) return false;
+    const windowPath = window.location.pathname.replace(/\/$/, "");
+    const linkPath = hrefFor(to).replace(/\/$/, "");
+    if (linkPath === "/admin/dashboard") return windowPath === linkPath;
+    return windowPath.startsWith(linkPath);
+  };
+
+  const renderLink = ({ to, icon, label, onClick }) => {
+    const active = linkActive(to);
+    return (
+      <a
+        key={label}
+        href={!to ? "#" : hrefFor(to)}
+        className={active ? "active" : ""}
+        onClick={(e) => {
+          if (onClick) {
+            e.preventDefault();
+            onClick();
+          }
+          if (isMobile) setSidebarOpen(false);
+        }}
+      >
+        <span className="ico">{icon}</span>
+        {label}
+      </a>
+    );
+  };
+
+  const renderNavLinks = () =>
+    NAV_LINKS.map((item) => {
+      if (!item.children) return renderLink(item);
+      const open = Boolean(openMenus[item.label]);
       return (
-        <a
-          key={label}
-          href={isHash ? "#" : hrefFor(to)}
-          className={active ? "active" : ""}
-          onClick={(e) => {
-            if (onClick) {
-              e.preventDefault();
-              onClick();
+        <div className={`nav-group${open ? " open" : ""}`} key={item.label}>
+          <button
+            type="button"
+            className="nav-group-label"
+            onClick={() =>
+              setOpenMenus((prev) => ({
+                ...prev,
+                [item.label]: !prev[item.label],
+              }))
             }
-            if (isMobile) {
-              setSidebarOpen(false);
-            }
-          }}
-        >
-          <span className="ico">{icon}</span>
-          {label}
-        </a>
+          >
+            <span className="ico">{item.icon}</span>
+            {item.label}
+            <i className={`bi ${open ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
+          </button>
+          {open && (
+            <div className="nav-group-links">
+              {item.children.map((child) => renderLink(child))}
+            </div>
+          )}
+        </div>
       );
     });
 
@@ -175,40 +196,34 @@ export default function Header() {
       </div>
       <div className="bottom-nav">
         <div className="bar">
-          <a
-            className="nav-btn"
-            href="/dashboard"
-          >
+          <a className="nav-btn" href="/admin/dashboard">
             <span className="ico">
               <i className="bi bi-house-door-fill"></i>
             </span>
+          </a>
 
+          <a className="nav-btn" href="/admin/fund/requests">
+            <span className="ico">
+              <i className="bi bi-cash-coin"></i>
+            </span>
           </a>
 
           <a className="nav-btn" href="/admin/users">
             <span className="ico">
               <i className="bi bi-people-fill"></i>
             </span>
-
           </a>
 
-          <a className="nav-btn" href="/wallet">
-            <span className="ico">
-              <i className="bi bi-coin"></i>
-            </span>
-
-          </a>
-
-          <a
+          <button
+            type="button"
             className="nav-btn"
             aria-label="Open menu"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="ico">
-              <i class="bi bi-list"></i>
+              <i className="bi bi-list"></i>
             </span>
-
-          </a>
+          </button>
         </div>
       </div>
     </>

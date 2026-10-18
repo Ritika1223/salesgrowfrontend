@@ -20,6 +20,8 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [referrerName, setReferrerName] = useState('');
+  const [referrerStatus, setReferrerStatus] = useState('');
 
   useEffect(() => {
     const refCodeFromUrl = (searchParams.get("ref") || "").trim();
@@ -27,6 +29,42 @@ export default function Signup() {
       setForm((prev) => ({ ...prev, referralCode: refCodeFromUrl.toUpperCase() }));
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    const code = form.referralCode.trim();
+    if (code.length < 6) {
+      setReferrerName('');
+      setReferrerStatus('');
+      return undefined;
+    }
+
+    let cancelled = false;
+    setReferrerStatus('checking');
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`${API_AUTH}/referral/lookup?code=${encodeURIComponent(code)}`);
+        const data = await res.json().catch(() => ({}));
+        if (cancelled) return;
+        if (res.ok && data.name) {
+          setReferrerName(data.name);
+          setReferrerStatus('found');
+        } else {
+          setReferrerName('');
+          setReferrerStatus('missing');
+        }
+      } catch {
+        if (!cancelled) {
+          setReferrerName('');
+          setReferrerStatus('');
+        }
+      }
+    }, 400);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [form.referralCode]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -127,7 +165,8 @@ export default function Signup() {
           <form onSubmit={handleSubmit} className="app-register-form">
             {/* REFERRAL */}
             <div className="app-form-group">
-              <label>Referral Code</label>
+              <label>Referral ID</label>
+              
 
               <div className="app-input-box">
                 <div className="input-icon">
@@ -137,11 +176,20 @@ export default function Signup() {
                 <input
                   type="text"
                   name="referralCode"
-                  placeholder="Optional referral code"
+                  placeholder="Enter referral id"
                   value={form.referralCode}
                   onChange={handleChange}
                 />
               </div>
+              {referrerStatus === 'checking' && (
+                <p className="sg-ref-check">Checking referral id...</p>
+              )}
+              {referrerStatus === 'found' && referrerName && (
+                <p className="sg-ref-check sg-ref-ok">{referrerName}</p>
+              )}
+              {referrerStatus === 'missing' && (
+                <p className="sg-ref-check sg-ref-bad">No user found for this id</p>
+              )}
             </div>
 
             {/* NAME */}

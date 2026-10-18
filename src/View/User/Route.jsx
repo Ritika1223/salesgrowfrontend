@@ -9,7 +9,10 @@ import Support from "./Pages/Support";
 import Wallet from "./Pages/Wallet";
 import React from "react";
 import MyProfile from "./Pages/MyProfile";
-import Packages from "./Pages/Packages";
+import FundRequest from "./Pages/FundRequest";
+import FundRequestReport from "./Pages/FundRequestReport";
+import FundReceivedReport from "./Pages/FundReceivedReport";
+import AccountSecurity from "./Pages/AccountSecurity";
 import { Navigate, useLocation } from "react-router-dom";
 import LevelIncome from "./Pages/LevelIncome";
 import { appRoute } from "../../utils/auth";
@@ -33,6 +36,8 @@ const Routes = [
     children: [
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/profile", element: <MyProfile /> },
+      { path: "/account/transaction-security", element: <AccountSecurity /> },
+      { path: "/account/login-security", element: <AccountSecurity /> },
       { path: "/chat", element: <Navigate to="/dashboard" replace /> },
       { path: "/live", element: <Navigate to="/dashboard" replace /> },
       { path: "/live/:sessionId", element: <Navigate to="/dashboard" replace /> },
@@ -40,7 +45,10 @@ const Routes = [
       { path: "/team", element: <MyTeam /> },
       { path: "/offers", element: <Offers /> },
       { path: "/wallet", element: <Wallet /> },
-      { path: "/plans", element: <Packages /> },
+      { path: "/plans", element: <Navigate to="/fund/request" replace /> },
+      { path: "/fund/request", element: <FundRequest /> },
+      { path: "/fund/report", element: <FundRequestReport /> },
+      { path: "/fund/received", element: <FundReceivedReport /> },
       { path: "/level", element: <LevelIncome /> },
       { path: "/pool/level", element: <PoolIncomePage /> },
       { path: "/support", element: <Support /> },

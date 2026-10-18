@@ -3,14 +3,12 @@ import { Navigate } from "react-router-dom";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Users from "./Pages/Users";
-import Stickers from "./Pages/Stickers";
 import AdminHeaderLayout from "./Componets/AdminHeaderLayout";
 import { isAdminLoggedIn } from "../../utils/adminAuth";
 import BankDetailPage from "./Pages/BankDetail";
-import PaymentHistoryPage from "./Pages/PaymentHistory";
 import AddFundPage from "./Pages/AddFund";
-import HostRequestsPage from "./Pages/HostRequests";
-import PlanRequestsPage from "./Pages/PlanRequests";
+import AdminFundRequests from "./Pages/AdminFundRequests";
+
 
 function AdminGuard({ children }) {
   if (!isAdminLoggedIn()) {
@@ -58,7 +56,7 @@ const Routes = [
       },
       {
         path: "payment-history",
-        element: <PaymentHistoryPage />
+        element: <Navigate to="/admin/dashboard" replace />
       },
       {
         path: "add-fund",
@@ -66,15 +64,23 @@ const Routes = [
       },
       {
         path: "host-requests",
-        element: <HostRequestsPage />
+        element: <Navigate to="/admin/dashboard" replace />
       },
       {
         path: "plan-requests",
-        element: <PlanRequestsPage />
+        element: <Navigate to="/admin/fund/requests" replace />
       },
       {
         path: "stickers",
-        element: <Stickers />
+        element: <Navigate to="/admin/dashboard" replace />
+      },
+      {
+        path: "fund/requests",
+        element: <AdminFundRequests />
+      },
+      {
+        path: "fund/report",
+        element: <AdminFundRequests reportOnly />
       }
     ]
   }

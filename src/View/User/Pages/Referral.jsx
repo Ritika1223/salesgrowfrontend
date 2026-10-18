@@ -219,7 +219,7 @@ export default function Referral() {
             <div className="refx-copy-left">
 
               <span className="refx-copy-title">
-                Your Referral Code
+                Your Referral ID
               </span>
 
               <h2 className="refx-copy-value">

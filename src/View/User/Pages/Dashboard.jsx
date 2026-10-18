@@ -316,7 +316,9 @@ export default function Dashboard() {
             <div className="hello">
 
               <strong className="welcome-title">
-                Hello, {profile?.name?.trim() || "there"} 👋
+                Hello, {profile?.name?.trim() || "there"}
+                {profile?.referralCode ? ` (${profile.referralCode})` : ""}{" "}
+                👋
               </strong>
 
               <span className="welcome-subtitle">
