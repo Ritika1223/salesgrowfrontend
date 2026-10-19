@@ -4,8 +4,8 @@ import { API_BASE, API_CHAT, getApiOrigin } from "../../../config/api";
 import { authJsonHeaders, getStoredAuthUser, getToken } from "../../../utils/auth";
 
 const DEMO_SCANNER = "/images/demo-scanner.svg";
-const MIN_INVEST = 50;
-const MAX_INVEST = 200;
+const MIN_INVEST = 5000;
+const MAX_INVEST = 200000;
 
 function getImageUrl(url) {
   if (!url) return DEMO_SCANNER;
@@ -149,7 +149,7 @@ export default function FundRequest() {
                 <input
                   type="number"
                   className="wallet-input"
-                  placeholder="50 to 200"
+                  placeholder="5000 to 200000"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   required
