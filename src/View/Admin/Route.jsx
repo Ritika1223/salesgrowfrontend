@@ -8,6 +8,7 @@ import { isAdminLoggedIn } from "../../utils/adminAuth";
 import BankDetailPage from "./Pages/BankDetail";
 import AddFundPage from "./Pages/AddFund";
 import AdminFundRequests from "./Pages/AdminFundRequests";
+import AdminWithdrawals from "./Pages/AdminWithdrawals";
 
 
 function AdminGuard({ children }) {
@@ -81,6 +82,14 @@ const Routes = [
       {
         path: "fund/report",
         element: <AdminFundRequests reportOnly />
+      },
+      {
+        path: "withdraw/requests",
+        element: <AdminWithdrawals />
+      },
+      {
+        path: "withdraw/report",
+        element: <AdminWithdrawals reportOnly />
       }
     ]
   }

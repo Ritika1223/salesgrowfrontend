@@ -123,6 +123,23 @@ const NAV_LINKS = [
 // },
 
 {
+  icon: <i className="bi bi-cash-stack"></i>,
+  label: "Withdrawal",
+  children: [
+    {
+      to: "withdraw/request",
+      icon: <i className="bi bi-send"></i>,
+      label: "Withdrawal Request",
+    },
+    {
+      to: "withdraw/report",
+      icon: <i className="bi bi-file-earmark-text"></i>,
+      label: "Withdrawal Request Report",
+    },
+  ],
+},
+
+{
   icon: <i className="bi bi-graph-up-arrow"></i>,
   label: "Income",
   children: INCOME_REPORTS.map((report) => ({
@@ -153,6 +170,7 @@ export default function Header() {
     const path = window.location.pathname;
     const open = {};
     if (path.startsWith("/fund")) open.Fund = true;
+    if (path.startsWith("/withdraw")) open.Withdrawal = true;
     if (path.startsWith("/reports")) open.Income = true;
     if (path.startsWith("/profile") || path.startsWith("/account")) {
       open["Manage Account"] = true;

@@ -4,11 +4,8 @@ import { API_BASE, API_CHAT, getApiOrigin } from "../../../config/api";
 import { authJsonHeaders, getStoredAuthUser, getToken } from "../../../utils/auth";
 
 const DEMO_SCANNER = "/images/demo-scanner.svg";
-const PLAN_BY_AMOUNT = {
-  590: "BASIC",
-  1180: "STANDARD",
-  5900: "PREMIUM",
-};
+const MIN_INVEST = 50;
+const MAX_INVEST = 200;
 
 function getImageUrl(url) {
   if (!url) return DEMO_SCANNER;
@@ -48,9 +45,8 @@ export default function FundRequest() {
     }
 
     const paid = Number(amount);
-    const planName = PLAN_BY_AMOUNT[paid];
-    if (!planName) {
-      setError("Enter 590, 1180, or 5900");
+    if (!Number.isFinite(paid) || paid < MIN_INVEST || paid > MAX_INVEST) {
+      setError(`Enter an investment from ${MIN_INVEST} to ${MAX_INVEST}`);
       return;
     }
     if (!transactionId.trim()) {
@@ -63,7 +59,7 @@ export default function FundRequest() {
     }
 
     const formData = new FormData();
-    formData.append("planName", planName);
+    formData.append("planName", "INVEST");
     formData.append("name", stored.name || "");
     formData.append("email", stored.email || "");
     formData.append("amount", paid);
@@ -153,7 +149,7 @@ export default function FundRequest() {
                 <input
                   type="number"
                   className="wallet-input"
-                  placeholder="Enter amount"
+                  placeholder="50 to 200"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   required

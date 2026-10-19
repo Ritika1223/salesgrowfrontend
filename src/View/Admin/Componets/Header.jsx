@@ -51,6 +51,23 @@ const NAV_LINKS = [
   },
 
   {
+    icon: <i className="bi bi-cash-stack"></i>,
+    label: "Withdrawal",
+    children: [
+      {
+        to: "admin/withdraw/requests",
+        icon: <i className="bi bi-check2-square"></i>,
+        label: "Withdrawal Requests",
+      },
+      {
+        to: "admin/withdraw/report",
+        icon: <i className="bi bi-file-earmark-text"></i>,
+        label: "Withdrawal Request Report",
+      },
+    ],
+  },
+
+  {
     to: "admin/users",
     icon: <i className="bi bi-person-circle"></i>,
     label: "All Users",
@@ -69,7 +86,10 @@ export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openMenus, setOpenMenus] = useState(() => {
     const path = window.location.pathname;
-    return path.startsWith("/admin/fund") ? { Fund: true } : {};
+    const open = {};
+    if (path.startsWith("/admin/fund")) open.Fund = true;
+    if (path.startsWith("/admin/withdraw")) open.Withdrawal = true;
+    return open;
   });
   const hrefFor = (to) => (to.startsWith("/") ? to : `/${to}`);
 

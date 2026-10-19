@@ -13,6 +13,8 @@ import FundRequest from "./Pages/FundRequest";
 import FundRequestReport from "./Pages/FundRequestReport";
 import FundReceivedReport from "./Pages/FundReceivedReport";
 import AccountSecurity from "./Pages/AccountSecurity";
+import WithdrawRequest from "./Pages/WithdrawRequest";
+import WithdrawReport from "./Pages/WithdrawReport";
 import { Navigate, useLocation } from "react-router-dom";
 import LevelIncome from "./Pages/LevelIncome";
 import { appRoute } from "../../utils/auth";
@@ -49,6 +51,8 @@ const Routes = [
       { path: "/fund/request", element: <FundRequest /> },
       { path: "/fund/report", element: <FundRequestReport /> },
       { path: "/fund/received", element: <FundReceivedReport /> },
+      { path: "/withdraw/request", element: <WithdrawRequest /> },
+      { path: "/withdraw/report", element: <WithdrawReport /> },
       { path: "/level", element: <LevelIncome /> },
       { path: "/pool/level", element: <PoolIncomePage /> },
       { path: "/support", element: <Support /> },
