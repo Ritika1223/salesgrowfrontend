@@ -4,8 +4,8 @@ import { API_BASE, API_CHAT, getApiOrigin } from "../../../config/api";
 import { authJsonHeaders, getStoredAuthUser, getToken } from "../../../utils/auth";
 
 const DEMO_SCANNER = "/images/demo-scanner.svg";
-const MIN_INVEST = 5000;
-const MAX_INVEST = 200000;
+const MIN_INVEST = 50;
+const INVEST_STEP = 50;
 
 function getImageUrl(url) {
   if (!url) return DEMO_SCANNER;
@@ -45,8 +45,8 @@ export default function FundRequest() {
     }
 
     const paid = Number(amount);
-    if (!Number.isFinite(paid) || paid < MIN_INVEST || paid > MAX_INVEST) {
-      setError(`Enter an investment from ${MIN_INVEST} to ${MAX_INVEST}`);
+    if (!Number.isFinite(paid) || paid < MIN_INVEST || paid % INVEST_STEP !== 0) {
+      setError(`Enter at least $${MIN_INVEST}, in multiples of $${INVEST_STEP}`);
       return;
     }
     if (!transactionId.trim()) {
@@ -99,7 +99,7 @@ export default function FundRequest() {
             <div>
               <h2 className="prox-live-navbar-title">Fund Transfer Request</h2>
               <p className="prox-live-navbar-subtitle">
-                Pay and submit the transfer details
+                Minimum $50. Amount must be a multiple of $50. ROI is 1% daily, Monday to Saturday, for 365 days.
               </p>
             </div>
           </div>
@@ -145,11 +145,13 @@ export default function FundRequest() {
 
             <form className="payment-form" onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Amount (₹)</label>
+                <label>Amount ($)</label>
                 <input
                   type="number"
                   className="wallet-input"
-                  placeholder="5000 to 200000"
+                  min={MIN_INVEST}
+                  step={INVEST_STEP}
+                  placeholder="50, 100, 150..."
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   required

@@ -160,7 +160,7 @@ export default function AdminFundRequests({ reportOnly = false }) {
                       <tr key={r._id}>
                         <td>{indexOfFirst + index + 1}</td>
                         <td>{r.name || user.name || "-"}</td>
-                        <td>₹ {Number(r.amount || 0).toLocaleString()}</td>
+                        <td>$ {Number(r.amount || 0).toLocaleString()}</td>
                         <td>{r.transactionId || "-"}</td>
                         <td>{r.remark || "-"}</td>
                         <td>

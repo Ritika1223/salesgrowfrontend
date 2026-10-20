@@ -53,7 +53,7 @@ export default function WithdrawRequest() {
             <div>
               <h2 className="prox-live-navbar-title">Withdrawal Request</h2>
               <p className="prox-live-navbar-subtitle">
-                Minimum 200. Request time is 12 AM to 10 AM. 10% is deducted.
+                Minimum $5. Request time is 12 AM to 10 AM. 10% is deducted. Credited within 24 hours.
               </p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function WithdrawRequest() {
               <input
                 type="number"
                 className="wallet-input"
-                placeholder="Minimum 200"
+                placeholder="Minimum $5"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required

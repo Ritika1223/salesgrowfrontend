@@ -204,7 +204,7 @@ export default function PlanRequestsPage() {
                         </td>
                         <td>
                           <span className="amount-badge">
-                            ₹ {Number(r.amount).toLocaleString()}
+                            $ {Number(r.amount).toLocaleString()}
                           </span>
                         </td>
                         <td>

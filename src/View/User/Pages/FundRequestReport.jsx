@@ -45,7 +45,7 @@ export default function FundRequestReport() {
                   rows.map((item, i) => (
                     <tr key={item._id}>
                       <td>{i + 1}</td>
-                      <td>₹{item.amount}</td>
+                      <td>${item.amount}</td>
                       <td>{item.transactionId || "-"}</td>
                       <td>{item.upiId || "-"}</td>
                       <td>{item.status}</td>
