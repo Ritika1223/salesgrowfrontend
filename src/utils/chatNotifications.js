@@ -77,7 +77,7 @@ function showBrowserNotification(payload) {
   const n = new Notification(payload.senderName || "New message", {
     body: payload.preview || "You have a new message",
     tag: payload.groupId ? `group-${payload.groupId}` : `chat-${payload.senderId}`,
-    icon: "/assets/img/favicon.png",
+    icon: "/images/logo2.png",
   });
   n.onclick = () => {
     window.focus();

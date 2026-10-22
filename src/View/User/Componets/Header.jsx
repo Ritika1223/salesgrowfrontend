@@ -249,23 +249,20 @@ export default function Header() {
           className={`sidebar${isMobile ? ' mobile' : ''}${isMobile && !sidebarOpen ? ' hidden' : ''}`}
           data-open={isMobile ? (sidebarOpen ? "true" : "false") : undefined}
         >
-          {/* {isMobile && (
-            <div
-              className="cp-mobile-sidebar-topbar"
-            >
-              <img src="/images/salesgrow.png" alt="SalesGrow" />
+          {isMobile && (
+            <div className="cp-mobile-sidebar-topbar">
+              <img className="kk-wordmark" src="/images/kakowa%20logo.png" alt="KaKowa MChat" />
               <button
                 aria-label="Close menu"
                 onClick={() => setSidebarOpen(false)}
                 className="cp-mobile-sidebar-close"
               >✕</button>
             </div>
-          )} */}
+          )}
 
-
-          {/* <div className="brand">
-            <img src="/images/salesgrow.png" alt="SalesGrow" />
-          </div> */}
+          <div className="brand">
+            <img className="kk-wordmark" src="/images/kakowa%20logo.png" alt="KaKowa MChat" />
+          </div>
 
           {guest && (
             <div className="cp-guest-chip">

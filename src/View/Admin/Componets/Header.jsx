@@ -162,7 +162,7 @@ export default function Header() {
             <div
               className="cp-mobile-sidebar-topbar"
             >
-              {/* <img src="/images/salesgrow.png" alt="SalesGrow" /> */}
+              <img className="kk-wordmark" src="/images/kakowa%20logo.png" alt="KaKowa MChat" />
               <button
                 aria-label="Close menu"
                 onClick={() => setSidebarOpen(false)}
@@ -182,18 +182,7 @@ export default function Header() {
               padding: '24px 0'
             }}
           >
-            <span
-              className="project-name"
-              style={{
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: '1.5rem',
-                textAlign: 'center',
-                letterSpacing: '1px'
-              }}
-            >
-              SalesGrow
-            </span>
+            <img className="kk-wordmark" src="/images/kakowa%20logo.png" alt="KaKowa MChat" />
           </div>
      
           <nav className="nav">

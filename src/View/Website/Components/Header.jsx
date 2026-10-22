@@ -65,7 +65,9 @@ const HeaderPage = () => {
             <div className="header-wrapper">
 
               <div className="logo">
-                <Link to="/">MLM Project</Link>
+                <Link to="/">
+                  <img className="site-logo" src="/images/logo2.png" alt="KaKowa" />
+                </Link>
               </div>
 
               <div className="menu-area">
