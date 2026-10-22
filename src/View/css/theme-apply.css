@@ -62,7 +62,7 @@ aside.sidebar {
 
 .nav a.active .ico {
   background: var(--color-gradient) !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .nav-group-label {
@@ -71,7 +71,7 @@ aside.sidebar {
   gap: 10px;
   width: 100%;
   padding: 10px 12px;
-  color: #000;
+  color: var(--color-ink);
   font-weight: 700;
   background: transparent;
   border: 0;
@@ -83,7 +83,7 @@ aside.sidebar {
 .nav-group-label .bi-chevron-down {
   margin-left: auto;
   background: transparent !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .nav-group.open > .nav-group-label {
@@ -94,7 +94,7 @@ aside.sidebar {
 
 .nav-group.open > .nav-group-label .ico {
   background: var(--color-gradient) !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .nav-group-label .ico {
@@ -122,7 +122,7 @@ aside.sidebar {
 .fund-request-form .wallet-input,
 .fund-request-form label,
 .fund-request-form p {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .fund-request-layout {
@@ -149,7 +149,7 @@ aside.sidebar {
 .fund-request-layout label,
 .fund-request-layout p,
 .fund-request-layout span {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 @media (max-width: 800px) {
@@ -164,7 +164,7 @@ aside.sidebar {
 }
 
 .bottom-nav .nav-btn {
-  color: #a5b4fc !important;
+  color: var(--color-peri) !important;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -172,7 +172,7 @@ aside.sidebar {
 
 .bottom-nav .nav-btn .ico {
   background: transparent !important;
-  color: #a5b4fc !important;
+  color: var(--color-peri) !important;
   border-color: transparent !important;
 }
 
@@ -197,13 +197,13 @@ aside.sidebar {
 .app > main strong,
 .app > main small,
 .app > main a {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .app > main .prox-live-navbar-subtitle,
 .app > main .muted,
 .app > main small {
-  color: #222 !important;
+  color: var(--color-muted) !important;
 }
 
 .app > main,
@@ -246,7 +246,7 @@ aside.sidebar {
   background: var(--color-surface) !important;
   border: 1px solid var(--color-line) !important;
   border-radius: 20px !important;
-  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1) !important;
+  box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28) !important;
   color: var(--color-ink) !important;
 }
 
@@ -284,10 +284,10 @@ aside.sidebar {
 .app > main .wallet-submit-btn,
 .app > main .dashboard-btn {
   background: var(--color-gradient) !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
   border: 0 !important;
   border-radius: 999px !important;
-  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.16) !important;
+  box-shadow: 0 8px 24px rgba(14, 143, 154, 0.35) !important;
 }
 
 .app > main .prox-live-outline-btn {
@@ -309,10 +309,10 @@ aside.sidebar {
 .sg-auth input,
 .sg-auth textarea,
 .sg-auth select {
-  background: #fff !important;
-  color: #000 !important;
-  -webkit-text-fill-color: #000 !important;
-  caret-color: #000;
+  background: var(--color-bg-soft) !important;
+  color: var(--color-ink) !important;
+  -webkit-text-fill-color: var(--color-ink) !important;
+  caret-color: var(--color-ink);
   border: 1px solid var(--color-line) !important;
   border-radius: 12px !important;
 }
@@ -324,11 +324,11 @@ textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill {
-  -webkit-text-fill-color: #000 !important;
-  caret-color: #000;
-  color: #000 !important;
-  box-shadow: 0 0 0 1000px #ffffff inset !important;
-  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: var(--color-ink) !important;
+  caret-color: var(--color-ink);
+  color: var(--color-ink) !important;
+  box-shadow: 0 0 0 1000px var(--color-bg-soft) inset !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg-soft) inset !important;
   transition: background-color 9999s ease-out 0s;
 }
 
@@ -406,7 +406,7 @@ select:-webkit-autofill {
   width: min(420px, 100%);
   background: var(--color-surface);
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1);
+  box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28);
   padding: 28px 24px;
 }
 
@@ -438,7 +438,7 @@ select:-webkit-autofill {
   margin: -2px 0 8px;
   font-size: 13px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-muted);
 }
 
 .sg-ref-ok {
@@ -464,20 +464,20 @@ select:-webkit-autofill {
   height: 48px;
   border: 0 !important;
   outline: 0;
-  background: #fff !important;
-  color: #000 !important;
-  -webkit-text-fill-color: #000 !important;
-  caret-color: #000;
+  background: var(--color-bg-soft) !important;
+  color: var(--color-ink) !important;
+  -webkit-text-fill-color: var(--color-ink) !important;
+  caret-color: var(--color-ink);
   box-shadow: none !important;
 }
 
 .sg-auth input:-webkit-autofill,
 .sg-auth input:-webkit-autofill:hover,
 .sg-auth input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #000 !important;
-  color: #000 !important;
-  box-shadow: 0 0 0 1000px #ffffff inset !important;
-  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: var(--color-ink) !important;
+  color: var(--color-ink) !important;
+  box-shadow: 0 0 0 1000px var(--color-bg-soft) inset !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg-soft) inset !important;
 }
 
 .sg-auth .input-icon,
@@ -495,13 +495,13 @@ select:-webkit-autofill {
   border: 0;
   border-radius: 999px;
   background: var(--color-gradient) !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.16);
+  box-shadow: 0 8px 24px rgba(14, 143, 154, 0.35);
 }
 
 .sg-auth .signup-text,
@@ -543,7 +543,7 @@ select:-webkit-autofill {
 .app > main .admin-dashboard-section,
 .app > main .admin-users-page {
   background: transparent !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .app > main .users-header-card,
@@ -552,8 +552,8 @@ select:-webkit-autofill {
 .app > main .dashboard-header {
   background: var(--color-surface) !important;
   border: 1px solid var(--color-line) !important;
-  color: #000 !important;
-  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1) !important;
+  color: var(--color-ink) !important;
+  box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28) !important;
 }
 
 .app > main .users-header-card h2,
@@ -567,7 +567,7 @@ select:-webkit-autofill {
 .app > main .premium-table,
 .app > main .search-input,
 .app > main .search-wrapper i {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .app > main .stats-card h2 {
@@ -579,7 +579,7 @@ select:-webkit-autofill {
 }
 
 .app > main .header-icon i {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .app > main .search-input {
@@ -588,7 +588,7 @@ select:-webkit-autofill {
 }
 
 .app > main .search-input::placeholder {
-  color: #333 !important;
+  color: var(--color-muted) !important;
 }
 
 .app > main .premium-table tbody tr {
@@ -604,13 +604,13 @@ select:-webkit-autofill {
 }
 
 .app > main .premium-table thead th {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .app > main .dashboard-btn,
 .app > main .admin-lab-btn {
   background: var(--color-gradient) !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
   border: 0 !important;
   border-radius: 999px !important;
 }
@@ -626,8 +626,8 @@ select:-webkit-autofill {
 .crop-modal {
   background: var(--color-surface) !important;
   border: 1px solid var(--color-line) !important;
-  color: #000 !important;
-  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.1) !important;
+  color: var(--color-ink) !important;
+  box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28) !important;
 }
 
 .app > main .info-card label,
@@ -642,7 +642,7 @@ select:-webkit-autofill {
 .cp-edit-modal p,
 .crop-modal,
 .crop-modal button {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 .cp-edit-modal input,
@@ -653,14 +653,14 @@ select:-webkit-autofill {
 .app > main select option,
 .app > main input,
 .app > main textarea {
-  background: #fff !important;
-  color: #000 !important;
-  -webkit-text-fill-color: #000 !important;
+  background: var(--color-bg-soft) !important;
+  color: var(--color-ink) !important;
+  -webkit-text-fill-color: var(--color-ink) !important;
 }
 
 .cp-edit-close {
   background: var(--color-pale) !important;
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }
 
 /* Gradient and dark bars keep light text */
@@ -682,5 +682,5 @@ select:-webkit-autofill {
 .app > main .cp-upload-btn,
 .app > main .dashboard-btn,
 .cp-upload-btn {
-  color: #000 !important;
+  color: var(--color-ink) !important;
 }

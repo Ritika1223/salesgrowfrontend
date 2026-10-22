@@ -1,26 +1,25 @@
 /*
   PROJECT THEME
-  Based on the LearnPro Hub look: soft lavender pages, white cards,
-  indigo text, and a purple gradient for buttons.
+  Same palette as the login screen: dark navy pages, cyan and gold accents.
   Change colors here only.
   Reference: https://learnpro.teenminar.com/app/dashboard.php
 */
 :root {
-  --color-bg: #f5f3ff;
-  --color-bg-soft: #faf8ff;
-  --color-surface: #ffffff;
-  --color-pale: #ede9fe;
-  --color-line: #e9e6f7;
-  --color-ink: #000000;
-  --color-text: #000000;
-  --color-muted: #333333;
-  --color-primary: #7c3aed;
-  --color-primary-dark: #4c1d95;
-  --color-accent: #6d28d9;
-  --color-peri: #818cf8;
-  --color-nav: #312e81;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-danger: #dc2626;
-  --color-gradient: linear-gradient(135deg, #818cf8 0%, #7c3aed 55%, #6d28d9 100%);
+  --color-bg: #03060f;
+  --color-bg-soft: #071422;
+  --color-surface: #0b1e30;
+  --color-pale: #0e2a3c;
+  --color-line: rgba(80, 230, 255, 0.35);
+  --color-ink: #f4fbff;
+  --color-text: #f4fbff;
+  --color-muted: #8ea4b8;
+  --color-primary: #13b8d8;
+  --color-primary-dark: #0e8f9a;
+  --color-accent: #19e0c4;
+  --color-peri: #3ee0ff;
+  --color-nav: #031020;
+  --color-success: #19e0c4;
+  --color-warning: #ffe08a;
+  --color-danger: #ff5c7a;
+  --color-gradient: linear-gradient(90deg, #0e8f9a 0%, #19e0c4 55%, #13b8d8 100%);
 }
