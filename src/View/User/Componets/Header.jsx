@@ -34,27 +34,6 @@ const NAV_LINKS = [
   label: "Dashboard",
 },
 
-{
-  icon: <i className="bi bi-person-gear"></i>,
-  label: "Manage Account",
-  children: [
-    {
-      to: "profile",
-      icon: <i className="bi bi-person-circle"></i>,
-      label: "Profile",
-    },
-    {
-      to: "account/transaction-security",
-      icon: <i className="bi bi-key"></i>,
-      label: "Transaction Security",
-    },
-    {
-      to: "account/login-security",
-      icon: <i className="bi bi-shield-lock"></i>,
-      label: "Login Security",
-    },
-  ],
-},
 
 
 
@@ -77,18 +56,28 @@ const NAV_LINKS = [
 // },
 
 {
+  icon: <i className="bi bi-graph-up-arrow"></i>,
+  label: "Income",
+  children: INCOME_REPORTS.map((report) => ({
+    to: report.to,
+    icon: <i className={`bi ${report.icon}`}></i>,
+    label: report.label,
+  })),
+},
+
+{
   icon: <i className="bi bi-cash-coin"></i>,
   label: "Fund",
   children: [
     {
       to: "fund/request",
       icon: <i className="bi bi-send-fill"></i>,
-      label: "Fund Transfer Request",
+      label: "Fund Request",
     },
     {
       to: "fund/report",
       icon: <i className="bi bi-file-earmark-text-fill"></i>,
-      label: "Fund Transfer Request Report",
+      label: "Fund  Request Report",
     },
     {
       to: "fund/received",
@@ -139,21 +128,36 @@ const NAV_LINKS = [
   ],
 },
 
-{
-  icon: <i className="bi bi-graph-up-arrow"></i>,
-  label: "Income",
-  children: INCOME_REPORTS.map((report) => ({
-    to: report.to,
-    icon: <i className={`bi ${report.icon}`}></i>,
-    label: report.label,
-  })),
-},
+
 
 // {
 //   to: "support",
 //   icon: <i className="bi bi-headset"></i>,
 //   label: "Support",
 // },
+
+
+{
+  icon: <i className="bi bi-person-gear"></i>,
+  label: "Manage Account",
+  children: [
+    {
+      to: "profile",
+      icon: <i className="bi bi-person-circle"></i>,
+      label: "Profile",
+    },
+    {
+      to: "account/transaction-security",
+      icon: <i className="bi bi-key"></i>,
+      label: "Transaction Security",
+    },
+    {
+      to: "account/login-security",
+      icon: <i className="bi bi-shield-lock"></i>,
+      label: "Login Security",
+    },
+  ],
+},
 
 {
   to: "",
@@ -251,7 +255,7 @@ export default function Header() {
         >
           {isMobile && (
             <div className="cp-mobile-sidebar-topbar">
-              <img className="kk-wordmark" src="/images/kakowa%20logo.png" alt="KaKowa MChat" />
+              <img className="kk-wordmark" src="/images/logo3.png" alt="KaKowa MChat" />
               <button
                 aria-label="Close menu"
                 onClick={() => setSidebarOpen(false)}
@@ -261,7 +265,7 @@ export default function Header() {
           )}
 
           <div className="brand">
-            <img className="kk-wordmark" src="/images/kakowa%20logo.png" alt="KaKowa MChat" />
+            <img className="kk-wordmark" src="/images/logo3.png" alt="KaKowa MChat" />
           </div>
 
           {guest && (

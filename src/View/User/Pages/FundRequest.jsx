@@ -97,7 +97,7 @@ export default function FundRequest() {
               <i className="bi bi-cash-coin"></i>
             </div>
             <div>
-              <h2 className="prox-live-navbar-title">Fund Transfer Request</h2>
+              <h2 className="prox-live-navbar-title">Fund  Request</h2>
               <p className="prox-live-navbar-subtitle">
                 Minimum $50. Amount must be a multiple of $50. ROI is 1% daily, Monday to Saturday, for 365 days.
               </p>

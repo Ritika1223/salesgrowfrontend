@@ -21,7 +21,7 @@ export default function FundRequestReport() {
       <div className="container-fluid">
         <div className="income-history-card">
           <div className="income-history-filter-area">
-            <h4>Fund Transfer Request Report</h4>
+            <h4>Fund  Request Report</h4>
           </div>
           {error && <p>{error}</p>}
           <div className="income-history-table-wrap">
@@ -55,7 +55,7 @@ export default function FundRequestReport() {
                 ) : (
                   <tr>
                     <td colSpan="6" style={{ textAlign: "center" }}>
-                      No fund transfer requests yet
+                      No fund  requests yet
                     </td>
                   </tr>
                 )}

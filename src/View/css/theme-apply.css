@@ -27,12 +27,52 @@ aside.sidebar {
 }
 
 .kk-wordmark {
-  width: min(180px, 100%);
-  height: 48px;
+  width: min(210px, 100%);
+  height: auto;
+  max-height: 64px;
   object-fit: contain;
   display: block;
-  background: transparent;
+  background: transparent !important;
   mix-blend-mode: screen;
+}
+
+.sidebar.mobile .brand {
+  display: none;
+}
+
+.cp-mobile-sidebar-topbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px;
+  height: auto !important;
+  min-height: 58px;
+  padding: 8px 12px !important;
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+.cp-mobile-sidebar-topbar .kk-wordmark {
+  width: min(168px, calc(100% - 44px));
+  max-height: 52px;
+}
+
+.cp-mobile-sidebar-close {
+  position: static !important;
+  right: auto !important;
+  margin: 0 !important;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #f4fbff !important;
+  border: 1px solid rgba(80, 230, 255, 0.55) !important;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
 }
 
 .site-logo {
@@ -148,14 +188,24 @@ aside.sidebar {
   max-width: none;
 }
 
-.fund-request-qr {
+.fund-request-qr,
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   text-align: center;
 }
 
-.fund-request-qr .payment-qr {
+.fund-request-qr .payment-qr,
+.qr-section .payment-qr,
+.payment-qr {
+  display: block;
   width: 220px;
   max-width: 100%;
   height: auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
   background: #fff;
   border-radius: 16px;
 }
@@ -170,6 +220,20 @@ aside.sidebar {
 @media (max-width: 800px) {
   .fund-request-layout {
     grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .fund-request-qr,
+  .qr-section {
+    width: 100%;
+    align-items: center;
+  }
+
+  .fund-request-qr .upi-box,
+  .qr-section .upi-box {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -363,7 +427,7 @@ select:-webkit-autofill {
   justify-content: center;
   padding: 48px;
   color: #fff;
-  background: var(--color-gradient);
+  /* background: var(--color-gradient); */
   position: relative;
   overflow: hidden;
 }

@@ -73,7 +73,7 @@ export default function WithdrawRequest() {
               />
             </div>
             <div className="form-group">
-              <label>UPI ID</label>
+              <label>USDT Address</label>
               <input
                 type="text"
                 className="wallet-input"
