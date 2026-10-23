@@ -88,7 +88,6 @@ const [showPassword, setShowPassword] = useState(false);
 <div className="sg-auth">
   <aside className="sg-auth-panel">
     <img className="site-logo" src="/images/logo3.png" alt="KaKowa" />
-    <h1>KaKowa</h1>
     <p>Sign in to manage subscriptions, referrals, and income from one place.</p>
   </aside>
 
