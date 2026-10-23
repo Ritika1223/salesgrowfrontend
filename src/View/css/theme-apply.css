@@ -27,9 +27,10 @@ aside.sidebar {
 }
 
 .kk-wordmark {
-  width: min(210px, 100%);
+  width: 155px;
+  max-width: 100%;
   height: auto;
-  max-height: 64px;
+  max-height: none;
   object-fit: contain;
   display: block;
   background: transparent !important;
@@ -52,9 +53,12 @@ aside.sidebar {
   border-bottom: none !important;
 }
 
+.brand .kk-wordmark,
 .cp-mobile-sidebar-topbar .kk-wordmark {
-  width: min(168px, calc(100% - 44px));
-  max-height: 52px;
+  width: 155px !important;
+  max-width: calc(100% - 44px);
+  height: auto !important;
+  max-height: none !important;
 }
 
 .cp-mobile-sidebar-close {
