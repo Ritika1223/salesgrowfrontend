@@ -26,6 +26,7 @@ function AdminGuardLogin() {
 }
 
 const Routes = [
+  /*
   {
     path: "/admin/login",
     element: <AdminGuardLogin />
@@ -93,6 +94,7 @@ const Routes = [
       }
     ]
   }
+  */
 ];
 
 export default Routes;

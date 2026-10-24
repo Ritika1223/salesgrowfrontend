@@ -445,10 +445,10 @@ export default function MyProfile() {
                 }
               </PlanDpRing>
               <h4>
-                @{profile.nickname || "member"}
+                @{profile.name || ""}
               </h4>
               <p>
-                {profile.about || "SalesGrow member"}
+                {profile.about || ""}
               </p>
               {/* STATS */}
               {/* MAIN STATS */}

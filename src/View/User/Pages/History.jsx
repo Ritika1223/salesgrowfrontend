@@ -8,17 +8,14 @@ import { resolveAuthUserId, authJsonHeaders } from "../../../utils/auth";
 const API_BASE_URL = API_BASE;
 
 export const INCOME_REPORTS = [
-  { to: "reports/self", type: "SELF_INCOME", label: "Self Income", icon: "bi-person-fill" },
+  { to: "reports/salary", type: "SALARY_INCOME", label: "Salary Income", icon: "bi-cash-stack" },
   { to: "reports/direct", type: "DIRECT_INCOME", label: "Direct Income", icon: "bi-person-plus-fill" },
   { to: "reports/level", type: "LEVEL_INCOME", label: "Level Income", icon: "bi-diagram-3-fill" },
-  { to: "reports/pool", type: "POOL_INCOME", label: "Pool Income", icon: "bi-collection-fill" },
-  { to: "reports/rank", type: "RANK_BONUS", label: "Rank Income", icon: "bi-award-fill" },
-  { to: "reports/vip", type: "VIP_INCOME", label: "VIP Club", icon: "bi-gem" },
 ];
 
 export default function History({
-  incomeType = "SELF_INCOME",
-  title = "Self Income",
+  incomeType = "SALARY_INCOME",
+  title = "Salary Income",
 }) {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
@@ -199,8 +196,8 @@ export default function History({
                           filteredUsers.map((item, i) => (
                             <tr key={item._id}>
                               <td>{i + 1}</td>
-                              <td>{item?.fromUserId?.referralCode || "self Income"}</td>
-                              <td>{item?.fromUserId?.nickname || "self"}</td>
+                              <td>{item?.fromUserId?.referralCode || "—"}</td>
+                              <td>{item?.fromUserId?.nickname || "—"}</td>
                               <td className="income-history-green">
                                 {item.amount}
                               </td>

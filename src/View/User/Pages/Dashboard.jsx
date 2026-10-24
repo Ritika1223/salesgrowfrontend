@@ -12,11 +12,9 @@ function isOkFlag(payload) {
 function sumIncomeReport(data) {
   if (!data) return 0;
   const keys = [
-    "SelfIncome",
+    "SalaryIncome",
     "DirectIncome",
     "LevelIncome",
-    "PoolIncome",
-    "RankIncome",
   ];
   return keys.reduce(
     (sum, k) => sum + Number(data[k] ?? 0),
@@ -363,7 +361,7 @@ export default function Dashboard() {
             <div style={{ color: "#ff4d4d", padding: 20 }}>{err}</div>
           ) : (
             <>
-              {/* Self Income */}
+              {/* Salary Income */}
               <div className="stat stat-green">
                 <div className="row">
                   <div className="left">
@@ -372,13 +370,12 @@ export default function Dashboard() {
                     </div>
 
                     <div>
-                      <h3>Self Income</h3>
+                      <h3>Salary Income</h3>
                       <p className="stat-amount">
-                        
-                        {incomeReport?.SelfIncome ?? 0}
+                        {formatMoneyINR(incomeReport?.SalaryIncome ?? 0)}
                       </p>
                       <p className="stat-text">
-                        All time earnings
+                        Monthly salary earned
                       </p>
                     </div>
                   </div>
@@ -421,67 +418,6 @@ export default function Dashboard() {
                       </p>
                       <p className="stat-text">
                         Team level rewards
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Pool Income */}
-              <div className="stat stat-orange">
-                <div className="row">
-                  <div className="left">
-                    <div className="chip chip-orange">
-                      <i className="bi bi-trophy-fill"></i>
-                    </div>
-
-                    <div>
-                      <h3>Pool Income</h3>
-                      <p className="stat-amount">
-                        {incomeReport?.PoolIncome ?? 0}
-                      </p>
-                      <p className="stat-text">
-                        Pool bonus income
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Rank Income */}
-              <div className="stat stat-pink">
-                <div className="row">
-                  <div className="left">
-                    <div className="chip chip-pink">
-                      <i className="bi bi-gem"></i>
-                    </div>
-
-                    <div>
-                      <h3>Rank Income</h3>
-                      <p className="stat-amount">
-                        {incomeReport?.RankIncome ?? 0}
-                      </p>
-                      <p className="stat-text">
-                        Rank achievement bonus
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* VIP Club */}
-              <div className="stat stat-brown">
-                <div className="row">
-                  <div className="left">
-                    <div className="chip chip-brown">
-                      <i className="bi bi-stars"></i>
-                    </div>
-
-                    <div>
-                      <h3>VIP Club</h3>
-                      <p className="stat-amount"> 00</p>
-                      <p className="stat-text">
-                        Complete tasks to unlock
                       </p>
                     </div>
                   </div>
@@ -661,10 +597,10 @@ export default function Dashboard() {
                       </div>
                       <div className="champion-avatar">
                         <img
-                          src={topThree.second.photo || "/images/user.jpg"}
+                          src={topThree.second.photo || "/images/logo5.jpeg"}
                           alt="User"
                           onError={(e) => {
-                            e.target.src = "/images/user.jpg";
+                            e.target.src = "/images/logo5.jpeg";
                           }}
                         />
                       </div>
@@ -884,7 +820,7 @@ export default function Dashboard() {
                       <div className="timeline-content">
                         <h5>
                           {activitySummary(item)}
-                          {item.amount != null && item.type === "REFERRAL_BONUS" ? (<> (+{formatMoneyINR(item.amount)})</>) : (<> (+{formatMoneyINR(item.amount)})</>)}
+                          {/* {item.amount != null && item.type === "REFERRAL_BONUS" ? (<> (+{formatMoneyINR(item.amount)})</>) : (<> (+{formatMoneyINR(item.amount)})</>)} */}
                         </h5>
                         <p>{timeAgo(item.date)}</p>
                       </div>

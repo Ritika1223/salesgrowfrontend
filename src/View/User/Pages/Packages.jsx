@@ -212,10 +212,7 @@ export default function Packages() {
 
                     <ul className="modern-plan-perks">
                       <li>
-                        <i className="bi bi-check-circle"></i> Starts self, direct, and level income
-                      </li>
-                      <li>
-                        <i className="bi bi-check-circle"></i> Pool, rank, and VIP income from this plan
+                        <i className="bi bi-check-circle"></i> Starts salary, direct, and level income
                       </li>
                     </ul>
 

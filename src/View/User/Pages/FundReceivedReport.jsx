@@ -4,40 +4,43 @@ import { API_BASE } from "../../../config/api";
 import { authJsonHeaders } from "../../../utils/auth";
 
 const TYPE_LABELS = {
-  BUY_COIN: "Buy",
+  BUY_COIN: "Fund",
   TOPUP: "Top up",
   REFERRAL_BONUS: "Referral",
-  LEVEL_INCOME: "Level",
-  POOL_INCOME: "Pool",
-  RANK_BONUS: "Rank",
-  DIRECT_INCOME: "Direct",
-  VIP_INCOME: "VIP",
-  SELF_INCOME: "Investment 1%",
-  SALARY_INCOME: "Salary",
   ADMIN_ADJUST: "Admin",
-  CHAT_EARN: "Chat",
-  LIVE_TIP: "Live",
 };
 
-export default function FundReceivedReport() {
+const REPORT_TYPES = {
+  fund: ["BUY_COIN", "TOPUP", "ADMIN_ADJUST"],
+  referral: ["REFERRAL_BONUS"],
+};
+
+function CreditReport({ title, kind, emptyText }) {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${API_BASE}/plans/fund-received`, { headers: authJsonHeaders() })
-      .then((res) => setRows(Array.isArray(res.data?.data) ? res.data.data : []))
-      .catch((err) => setError(err?.response?.data?.message || "Could not load received funds"))
+      .get(`${API_BASE}/plans/fund-received`, {
+        headers: authJsonHeaders(),
+        params: { kind },
+      })
+      .then((res) => {
+        const all = Array.isArray(res.data?.data) ? res.data.data : [];
+        const allow = REPORT_TYPES[kind] || REPORT_TYPES.fund;
+        setRows(all.filter((row) => allow.includes(row.type)));
+      })
+      .catch((err) => setError(err?.response?.data?.message || "Could not load report"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [kind]);
 
   return (
     <div className="income-history-page">
       <div className="container-fluid">
         <div className="income-history-card">
           <div className="income-history-filter-area">
-            <h4>Fund Received Report</h4>
+            <h4>{title}</h4>
           </div>
           {error && <p>{error}</p>}
           <div className="income-history-table-wrap">
@@ -71,7 +74,7 @@ export default function FundReceivedReport() {
                 ) : (
                   <tr>
                     <td colSpan="6" style={{ textAlign: "center" }}>
-                      No fund received yet
+                      {emptyText}
                     </td>
                   </tr>
                 )}
@@ -81,5 +84,25 @@ export default function FundReceivedReport() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function FundReceivedReport() {
+  return (
+    <CreditReport
+      title="Fund Received Report"
+      kind="fund"
+      emptyText="No fund received yet"
+    />
+  );
+}
+
+export function ReferralCoinsReport() {
+  return (
+    <CreditReport
+      title="Referral Coins Report"
+      kind="referral"
+      emptyText="No referral coins yet"
+    />
   );
 }

@@ -3,7 +3,6 @@
 // ==========================
 
 import React from "react";
-import PoolIncomePage from "./PoolIncome";
 
 const LevelIncomePage = () => {
   const levels = [
@@ -156,9 +155,6 @@ const LevelIncomePage = () => {
           ))}
         </div>
 
-       
-<PoolIncomePage/>
-        
       </div>
     </div>
   );

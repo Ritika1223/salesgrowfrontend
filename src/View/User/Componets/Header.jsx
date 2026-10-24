@@ -84,6 +84,11 @@ const NAV_LINKS = [
       icon: <i className="bi bi-box-arrow-in-down"></i>,
       label: "Fund Received Report",
     },
+    {
+      to: "fund/referral-coins",
+      icon: <i className="bi bi-coin"></i>,
+      label: "Referral Coins Report",
+    },
   ],
 },
 

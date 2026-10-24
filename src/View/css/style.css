@@ -16147,16 +16147,12 @@ option{
 
 .income-history-table{
   width:100%;
-  border-collapse:collapse;
+  border-collapse:separate;
+  border-spacing:0;
 }
 
 .income-history-table thead{
-  background:
-  linear-gradient(
-    135deg,
-    rgba(123,47,247,0.20),
-    rgba(241,7,163,0.15)
-  );
+  background: var(--color-gradient);
 }
 
 .income-history-table th{
@@ -16165,6 +16161,14 @@ option{
   color:#fff;
   font-size:14px;
   font-weight:700;
+}
+
+.income-history-table thead th:first-child{
+  border-radius:16px 0 0 16px;
+}
+
+.income-history-table thead th:last-child{
+  border-radius:0 16px 16px 0;
 }
 
 .income-history-table td{
@@ -17388,11 +17392,7 @@ option{
 }
 
 .premium-table thead tr {
-    background: linear-gradient(
-        90deg,
-        var(--color-primary-dark),
-        #6d145c
-    );
+    background: var(--color-gradient);
 }
 
 .premium-table thead th {
@@ -17404,11 +17404,11 @@ option{
 }
 
 .premium-table thead th:first-child {
-    border-radius: 15px 0 0 0;
+    border-radius: 16px 0 0 16px;
 }
 
 .premium-table thead th:last-child {
-    border-radius: 0 15px 0 0;
+    border-radius: 0 16px 16px 0;
 }
 
 .premium-table tbody tr {

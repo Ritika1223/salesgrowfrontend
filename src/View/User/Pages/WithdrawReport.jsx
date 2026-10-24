@@ -32,7 +32,7 @@ export default function WithdrawReport() {
                   <th>Amount</th>
                   <th>Deduction</th>
                   <th>Payout</th>
-                  <th>UPI ID</th>
+                  <th>USDT Address</th>
                   <th>Status</th>
                   <th>Date</th>
                 </tr>

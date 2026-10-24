@@ -77,7 +77,7 @@ export default function WithdrawRequest() {
               <input
                 type="text"
                 className="wallet-input"
-                placeholder="name@upi"
+                // placeholder="name@upi"
                 value={upiId}
                 onChange={(e) => setUpiId(e.target.value)}
                 required

@@ -11,14 +11,13 @@ import React from "react";
 import MyProfile from "./Pages/MyProfile";
 import FundRequest from "./Pages/FundRequest";
 import FundRequestReport from "./Pages/FundRequestReport";
-import FundReceivedReport from "./Pages/FundReceivedReport";
+import FundReceivedReport, { ReferralCoinsReport } from "./Pages/FundReceivedReport";
 import AccountSecurity from "./Pages/AccountSecurity";
 import WithdrawRequest from "./Pages/WithdrawRequest";
 import WithdrawReport from "./Pages/WithdrawReport";
 import { Navigate, useLocation } from "react-router-dom";
 import LevelIncome from "./Pages/LevelIncome";
 import { appRoute } from "../../utils/auth";
-import PoolIncomePage from "./Pages/PoolIncome";
 
 /** Old URLs `/user/:mongoId/...` → `/...` */
 function LegacyUserMongoRedirect() {
@@ -51,17 +50,22 @@ const Routes = [
       { path: "/fund/request", element: <FundRequest /> },
       { path: "/fund/report", element: <FundRequestReport /> },
       { path: "/fund/received", element: <FundReceivedReport /> },
+      { path: "/fund/referral-coins", element: <ReferralCoinsReport /> },
       { path: "/withdraw/request", element: <WithdrawRequest /> },
       { path: "/withdraw/report", element: <WithdrawReport /> },
       { path: "/level", element: <LevelIncome /> },
-      { path: "/pool/level", element: <PoolIncomePage /> },
+      { path: "/pool/level", element: <Navigate to="/dashboard" replace /> },
       { path: "/support", element: <Support /> },
       { path: "/leaderboard", element: <LeaderBoard /> },
       ...INCOME_REPORTS.map((report) => ({
         path: `/${report.to}`,
         element: <History incomeType={report.type} title={report.label} />,
       })),
-      { path: "/history", element: <Navigate to="/reports/self" replace /> },
+      { path: "/history", element: <Navigate to="/reports/salary" replace /> },
+      { path: "/reports/self", element: <Navigate to="/reports/salary" replace /> },
+      { path: "/reports/pool", element: <Navigate to="/dashboard" replace /> },
+      { path: "/reports/rank", element: <Navigate to="/dashboard" replace /> },
+      { path: "/reports/vip", element: <Navigate to="/dashboard" replace /> },
     ],
     
   },

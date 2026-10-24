@@ -161,7 +161,7 @@ export default function Referral() {
 
         </div>
 
-        <div className="refx-main-card">
+        <div className="">
 
 
         <div className="row">

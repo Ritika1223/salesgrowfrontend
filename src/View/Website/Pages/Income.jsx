@@ -76,40 +76,22 @@ const IncomePage = () => {
           <div className="row g-4">
             {[
               {
-                title: "Self Income",
-                percent: "36%",
-                icon: "bi-wallet2",
-                desc: "Earn income directly from your own activity, chatting, hosting, engagement, and platform participation.",
+                title: "Salary Income",
+                percent: "Monthly",
+                icon: "bi-cash-stack",
+                desc: "Qualify on your own investment and three team legs to earn a monthly salary.",
               },
               {
                 title: "Direct Referral Income",
-                percent: "12%",
+                percent: "Direct",
                 icon: "bi-people-fill",
                 desc: "Invite friends using your referral link and receive rewards whenever they join and stay active.",
               },
               {
                 title: "Level Income",
-                percent: "10%",
+                percent: "Team",
                 icon: "bi-diagram-3-fill",
-                desc: "Earn team-based level income from your growing network up to 14 levels deep.",
-              },
-              {
-                title: "Pool Income",
-                percent: "12%",
-                icon: "bi-bar-chart-fill",
-                desc: "Achieve higher pool ranks by completing direct targets and unlock extra bonus income.",
-              },
-              {
-                title: "Rank Rewards",
-                percent: "4%",
-                icon: "bi-trophy-fill",
-                desc: "Complete activity milestones and unlock special rank bonuses and reward percentages.",
-              },
-              {
-                title: "VIP Club Income",
-                percent: "9%",
-                icon: "bi-gem",
-                desc: "Exclusive VIP members receive premium income benefits, higher bonuses, and special rewards.",
+                desc: "Earn team-based level income from your growing network.",
               },
             ].map((item, index) => (
               <div className="col-lg-4 col-md-6" key={index}>
@@ -399,152 +381,6 @@ const IncomePage = () => {
         </div>
       </section> */}
 
-      {/* POOL LEVELS */}
-      <section
-        style={{
-          padding: "100px 0",
-        }}
-      >
-        <div className="container">
-          <div className="row g-5">
-            <div className="col-lg-6">
-              <div
-                style={{
-                  background:
-                    "linear-gradient(145deg,#1c0038,#2a0050,#140027)",
-                  borderRadius: "25px",
-                  padding: "50px",
-                  height: "100%",
-                }}
-              >
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    marginBottom: "30px",
-                  }}
-                >
-                  Pool Progression
-                </h2>
-
-                {[
-                  "Starter → 10 Directs",
-                  "Active → 20 Directs",
-                  "Growth → 50 Directs",
-                  "Leader → 100 Directs",
-                  "Crown → 200 Directs",
-                  "King → 500 Directs",
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      padding: "18px 25px",
-                      background: "rgba(255,255,255,0.08)",
-                      borderRadius: "12px",
-                      marginBottom: "20px",
-                      fontSize: "20px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {item}
-                  </div>
-                ))}
-
-                <p
-                  style={{
-                    color: "#ccc",
-                    lineHeight: "32px",
-                    marginTop: "30px",
-                  }}
-                >
-                  The more direct referrals you build, the higher your pool
-                  level becomes, unlocking larger team income rewards.
-                </p>
-              </div>
-            </div>
-
-            {/* RANK REWARDS */}
-            <div className="col-lg-6">
-              <div
-                style={{
-                  background:
-                    "linear-gradient(145deg,#1c0038,#2a0050,#140027)",
-                  borderRadius: "25px",
-                  padding: "50px",
-                  height: "100%",
-                }}
-              >
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    marginBottom: "30px",
-                  }}
-                >
-                  Rank Rewards
-                </h2>
-
-                {[
-                  {
-                    title: "Go Chat",
-                    desc: "1% Bonus + 5 Days Active",
-                  },
-                  {
-                    title: "Chat Pro",
-                    desc: "1% Bonus + 10 Days Active as Host",
-                  },
-                  {
-                    title: "Chat Pro X",
-                    desc: "1% Bonus + 20 Days Active",
-                  },
-                  {
-                    title: "Super Chat Pro X",
-                    desc: "1% Bonus + 25 Days Active",
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      background: "rgba(255,255,255,0.08)",
-                      padding: "25px",
-                      borderRadius: "15px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <h4
-                      style={{
-                        color: "#ffcc00",
-                        marginBottom: "10px",
-                        fontWeight: "700",
-                      }}
-                    >
-                      🏆 {item.title}
-                    </h4>
-
-                    <p
-                      style={{
-                        color: "#ddd",
-                        margin: 0,
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-
-                <p
-                  style={{
-                    color: "#ccc",
-                    lineHeight: "32px",
-                    marginTop: "30px",
-                  }}
-                >
-                  Stay active consistently and unlock premium reward bonuses,
-                  higher rank status, and exclusive earning opportunities.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
      
     </div>

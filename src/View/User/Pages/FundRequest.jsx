@@ -112,7 +112,7 @@ export default function FundRequest() {
             <p>Admin will verify the payment and confirm your request.</p>
           </div>
         ) : (
-          <div className="income-history-card fund-request-layout">
+          <div className="">
             <div className="fund-request-qr">
               {bankLoading ? (
                 <div className="wallet-loading">Loading scanner...</div>

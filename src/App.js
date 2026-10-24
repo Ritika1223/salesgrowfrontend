@@ -2,7 +2,7 @@ import { ToastContainer } from 'react-toastify';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import websiteRoute from './View/Website/Route'
 import userRoute from './View/User/Route'
-import adminRoute from './View/Admin/Route'
+// import adminRoute from './View/Admin/Route'
 import './View/css/theme.css'
 import './View/css/style.css'
 import './View/css/theme-apply.css'
@@ -12,7 +12,11 @@ import './View/css/theme-apply.css'
 const App = () => {
   return (<>
         <ToastContainer />
-        <RouterProvider router={createBrowserRouter([...websiteRoute, ...userRoute, ...adminRoute])} />
+        <RouterProvider router={createBrowserRouter([
+          ...websiteRoute,
+          ...userRoute,
+          // ...adminRoute,
+        ])} />
   </>)
 }
 

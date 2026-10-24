@@ -15,7 +15,7 @@ body,
 
 aside.sidebar {
   background: var(--color-surface) !important;
-  border-right: 1px solid var(--color-line) !important;
+  border-right: 2px solid var(--color-line) !important;
   width: 270px !important;
   box-shadow: none !important;
 }
@@ -327,7 +327,7 @@ aside.sidebar {
 .wallet-modal-box,
 .cpx-coin-inner {
   background: var(--color-surface) !important;
-  border: 1px solid var(--color-line) !important;
+  border: 2px solid var(--color-line) !important;
   border-radius: 20px !important;
   box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28) !important;
   color: var(--color-ink) !important;
@@ -376,7 +376,7 @@ aside.sidebar {
 .app > main .prox-live-outline-btn {
   background: var(--color-surface) !important;
   color: var(--color-accent) !important;
-  border: 1px solid var(--color-line) !important;
+  border: 2px solid var(--color-line) !important;
   border-radius: 999px !important;
 }
 
@@ -396,7 +396,7 @@ aside.sidebar {
   color: var(--color-ink) !important;
   -webkit-text-fill-color: var(--color-ink) !important;
   caret-color: var(--color-ink);
-  border: 1px solid var(--color-line) !important;
+  border: 2px solid var(--color-line) !important;
   border-radius: 12px !important;
 }
 
@@ -537,7 +537,7 @@ select:-webkit-autofill {
   align-items: center;
   gap: 8px;
   background: var(--color-bg-soft);
-  border: 1px solid var(--color-line);
+  border: 2px solid var(--color-line);
   border-radius: 12px;
   padding: 0 12px;
 }
@@ -634,7 +634,7 @@ select:-webkit-autofill {
 .app > main .users-table-card,
 .app > main .dashboard-header {
   background: var(--color-surface) !important;
-  border: 1px solid var(--color-line) !important;
+  border: 2px solid var(--color-line) !important;
   color: var(--color-ink) !important;
   box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28) !important;
 }
@@ -667,7 +667,7 @@ select:-webkit-autofill {
 
 .app > main .search-input {
   background: var(--color-bg-soft) !important;
-  border: 1px solid var(--color-line) !important;
+  border: 2px solid var(--color-line) !important;
 }
 
 .app > main .search-input::placeholder {
@@ -679,15 +679,64 @@ select:-webkit-autofill {
 }
 
 .app > main .premium-table td {
-  border-bottom: 1px solid var(--color-line) !important;
+  border-bottom: 2px solid var(--color-line) !important;
 }
 
+.app > main .income-history-table,
+.app > main .premium-table {
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+.app > main .income-history-table-wrap {
+  box-sizing: border-box;
+  margin-top: 12px !important;
+  padding: 16px 12px 10px !important;
+  border: 2px solid var(--color-line) !important;
+  border-radius: 20px !important;
+  background: var(--color-surface) !important;
+  overflow-x: auto !important;
+}
+
+.app > main .users-table-card .table-responsive,
+.app > main .table-reponsive {
+  box-sizing: border-box;
+  padding-top: 16px !important;
+  border: 0 !important;
+  overflow-x: auto !important;
+}
+
+.app > main table thead,
+.app > main table thead tr,
+.app > main .income-history-table thead,
+.app > main .income-history-table thead tr,
+.app > main .premium-table thead,
 .app > main .premium-table thead tr {
-  background: var(--color-pale) !important;
+  background: transparent !important;
 }
 
+.app > main table thead th,
+.app > main .income-history-table thead th,
 .app > main .premium-table thead th {
-  color: var(--color-ink) !important;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-primary-dark)) !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.app > main table thead th:first-child,
+.app > main .income-history-table thead th:first-child,
+.app > main .premium-table thead th:first-child {
+  border-radius: 16px 0 0 16px !important;
+}
+
+.app > main table thead th:last-child,
+.app > main .income-history-table thead th:last-child,
+.app > main .premium-table thead th:last-child {
+  border-radius: 0 16px 16px 0 !important;
 }
 
 .app > main .dashboard-btn,
@@ -696,6 +745,10 @@ select:-webkit-autofill {
   color: var(--color-ink) !important;
   border: 0 !important;
   border-radius: 999px !important;
+}
+
+.app > main .activity-ui .timeline-value {
+  color: var(--color-text) !important;
 }
 
 /* White cards: dark text. Dark theme panels: white text. */
@@ -708,7 +761,7 @@ select:-webkit-autofill {
 .cp-edit-modal,
 .crop-modal {
   background: var(--color-surface) !important;
-  border: 1px solid var(--color-line) !important;
+  border: 2px solid var(--color-line) !important;
   color: var(--color-ink) !important;
   box-shadow: 0 8px 24px rgba(14, 143, 154, 0.28) !important;
 }
