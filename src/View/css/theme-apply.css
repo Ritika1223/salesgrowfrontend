@@ -695,10 +695,11 @@ select:-webkit-autofill {
 .app > main .income-history-table-wrap {
   box-sizing: border-box;
   margin-top: 12px !important;
-  padding: 16px 12px 10px !important;
-  border: 2px solid var(--color-line) !important;
-  border-radius: 20px !important;
-  background: var(--color-surface) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
   overflow-x: auto !important;
 }
 
@@ -719,10 +720,14 @@ select:-webkit-autofill {
   background: transparent !important;
 }
 
+.app > main .income-history-card {
+  border: 2px solid var(--color-primary) !important;
+}
+
 .app > main table thead th,
 .app > main .income-history-table thead th,
 .app > main .premium-table thead th {
-  background: linear-gradient(180deg, var(--color-accent), var(--color-primary-dark)) !important;
+  background: var(--color-primary) !important;
   color: #fff !important;
   border: 0 !important;
 }

@@ -216,7 +216,7 @@ export default function Referral() {
 
           <div className="refx-copy-box">
 
-            <div className="refx-copy-left">
+            {/* <div className="refx-copy-left">
 
               <span className="refx-copy-title">
                 Your Referral ID
@@ -228,7 +228,7 @@ export default function Referral() {
                   : referralCode || "N/A"}
               </h2>
 
-            </div>
+            </div> */}
 
             {/* <button
               onClick={handleCopyCode}

@@ -99,7 +99,7 @@ export default function FundRequest() {
             <div>
               <h2 className="prox-live-navbar-title">Fund  Request</h2>
               <p className="prox-live-navbar-subtitle">
-                Minimum $50. Amount must be a multiple of $50. ROI is 1% daily, Monday to Saturday, for 365 days.
+                Minimum $50. Amount must be a multiple of $50. ROI is 1% daily, Monday to Saturday, for 365 days, starting the day after the investment is accepted.
               </p>
             </div>
           </div>

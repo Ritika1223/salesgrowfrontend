@@ -14,7 +14,7 @@ function sumIncomeReport(data) {
   const keys = [
     "SalaryIncome",
     "DirectIncome",
-    "LevelIncome",
+    "RoiToRoiIncome",
   ];
   return keys.reduce(
     (sum, k) => sum + Number(data[k] ?? 0),
@@ -314,9 +314,9 @@ export default function Dashboard() {
             <div className="hello">
 
               <strong className="welcome-title">
-                Hello, {profile?.name?.trim() || "there"}
+                Hello, {profile?.name?.trim() || "there"}👋
                 {profile?.referralCode ? ` (${profile.referralCode})` : ""}{" "}
-                👋
+                
               </strong>
 
               <span className="welcome-subtitle">
@@ -361,26 +361,7 @@ export default function Dashboard() {
             <div style={{ color: "#ff4d4d", padding: 20 }}>{err}</div>
           ) : (
             <>
-              {/* Salary Income */}
-              <div className="stat stat-green">
-                <div className="row">
-                  <div className="left">
-                    <div className="chip chip-green">
-                      <i className="bi bi-cash-stack"></i>
-                    </div>
-
-                    <div>
-                      <h3>Salary Income</h3>
-                      <p className="stat-amount">
-                        {formatMoneyINR(incomeReport?.SalaryIncome ?? 0)}
-                      </p>
-                      <p className="stat-text">
-                        Monthly salary earned
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
 
               {/* Direct Income */}
               <div className="stat stat-blue">
@@ -412,12 +393,33 @@ export default function Dashboard() {
                     </div>
 
                     <div>
-                      <h3>Level Income</h3>
+                      <h3>ROI to ROI Income</h3>
                       <p className="stat-amount">
-                         {formatMoneyINR(incomeReport?.LevelIncome ?? 0)}
+                         {formatMoneyINR(incomeReport?.RoiToRoiIncome ?? 0)}
                       </p>
                       <p className="stat-text">
-                        Team level rewards
+                        Team share of downline ROI
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+               {/* Salary Income */}
+               <div className="stat stat-green">
+                <div className="row">
+                  <div className="left">
+                    <div className="chip chip-green">
+                      <i className="bi bi-cash-stack"></i>
+                    </div>
+
+                    <div>
+                      <h3>Salary Income</h3>
+                      <p className="stat-amount">
+                        {formatMoneyINR(incomeReport?.SalaryIncome ?? 0)}
+                      </p>
+                      <p className="stat-text">
+                        Monthly salary earned
                       </p>
                     </div>
                   </div>

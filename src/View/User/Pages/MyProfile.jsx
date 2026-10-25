@@ -526,7 +526,7 @@ export default function MyProfile() {
                     </h4>
                   </div>
 
-                  <div className="info-card">
+                  {/* <div className="info-card">
                     <label>Referral Code</label>
                     <div className="referral-box">
                       <h4>{profile.referralCode || "-"}</h4>
@@ -539,7 +539,7 @@ export default function MyProfile() {
                         Copy
                       </button>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="info-card">
                     <label>Total Referrals</label>

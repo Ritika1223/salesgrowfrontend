@@ -8,10 +8,22 @@ import { resolveAuthUserId, authJsonHeaders } from "../../../utils/auth";
 const API_BASE_URL = API_BASE;
 
 export const INCOME_REPORTS = [
-  { to: "reports/salary", type: "SALARY_INCOME", label: "Salary Income", icon: "bi-cash-stack" },
   { to: "reports/direct", type: "DIRECT_INCOME", label: "Direct Income", icon: "bi-person-plus-fill" },
   { to: "reports/level", type: "LEVEL_INCOME", label: "Level Income", icon: "bi-diagram-3-fill" },
+  { to: "reports/roi-to-roi", type: "ROI_TO_ROI", label: "ROI to ROI Income", icon: "bi-arrow-repeat" },
+  { to: "reports/salary", type: "SALARY_INCOME", label: "Salary Income", icon: "bi-cash-stack" },
+
 ];
+
+function roiShare(level) {
+  const n = Number(level);
+  if (n === 1) return "20%";
+  if (n === 2) return "10%";
+  if (n === 3 || n === 4) return "5%";
+  if (n >= 5 && n <= 11) return "3%";
+  if (n >= 12 && n <= 21) return "2%";
+  return "—";
+}
 
 export default function History({
   incomeType = "SALARY_INCOME",
@@ -116,7 +128,9 @@ export default function History({
                 </h2>
 
                 <p className="prox-live-navbar-subtitle">
-                  Track this income report
+                  {incomeType === "ROI_TO_ROI"
+                    ? "Level 1 20%, Level 2 10%, Level 3–4 5%, Level 5–11 3%, Level 12–21 2% of downline daily ROI"
+                    : "Track this income report"}
                 </p>
               </div>
 
@@ -135,13 +149,6 @@ export default function History({
 
           {/* CARD */}
           <div className="income-history-card">
-
-            {/* TOP FILTERS */}
-            <div className="income-history-filter-area">
-
-              <h4>{title}</h4>
-
-            </div>
 
             {/* EXTRA FILTERS */}
             <div className="income-history-table-topbar">
@@ -186,7 +193,9 @@ export default function History({
                           <th>#</th>
                           <th>From ID</th>
                           <th>Name</th>
-                          <th>Coin</th>
+                          {incomeType === "ROI_TO_ROI" && <th>Level</th>}
+                          {incomeType === "ROI_TO_ROI" && <th>Share</th>}
+                          <th>{incomeType === "ROI_TO_ROI" ? "Amount ($)" : "Coin"}</th>
                           <th>Date</th>
                         </tr>
                       </thead>
@@ -197,7 +206,9 @@ export default function History({
                             <tr key={item._id}>
                               <td>{i + 1}</td>
                               <td>{item?.fromUserId?.referralCode || "—"}</td>
-                              <td>{item?.fromUserId?.nickname || "—"}</td>
+                              <td>{item?.fromUserId?.nickname || item?.fromUserId?.name || "—"}</td>
+                              {incomeType === "ROI_TO_ROI" && <td>{item.level || "—"}</td>}
+                              {incomeType === "ROI_TO_ROI" && <td>{roiShare(item.level)}</td>}
                               <td className="income-history-green">
                                 {item.amount}
                               </td>
@@ -208,7 +219,7 @@ export default function History({
                           ))
                         ) : (
                           <tr>
-                            <td colSpan="5" style={{ textAlign: "center" }}>
+                            <td colSpan={incomeType === "ROI_TO_ROI" ? 7 : 5} style={{ textAlign: "center" }}>
                               No income history found
                             </td>
                           </tr>

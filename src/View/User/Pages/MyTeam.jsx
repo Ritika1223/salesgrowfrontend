@@ -58,19 +58,32 @@ export default function MyTeam() {
         </div>
 
         <div className="income-history-card">
-          <div className="income-history-filter-area" style={{ flexWrap: "wrap", gap: 8 }}>
-            {TABS.map((item) => (
-              <button
-                key={item.label}
-                type="button"
-                className={`prox-live-outline-btn ${tab === item.id ? "active" : ""}`}
-                onClick={() => setTab(item.id)}
-              >
-                {item.label}
-                {" "}
-                ({(item.id === "direct" ? levels[0]?.members : levels.find((row) => row.level === item.id)?.members)?.length || 0})
-              </button>
-            ))}
+          <div className="income-history-filter-area team-level-filter">
+            <label className="team-level-label" htmlFor="team-level">
+              Level
+            </label>
+            <select
+              id="team-level"
+              className="income-history-select team-level-select"
+              value={String(tab)}
+              onChange={(e) => {
+                const value = e.target.value;
+                setTab(value === "direct" ? "direct" : Number(value));
+              }}
+            >
+              {TABS.map((item) => {
+                const count =
+                  (item.id === "direct"
+                    ? levels[0]?.members
+                    : levels.find((row) => row.level === item.id)?.members
+                  )?.length || 0;
+                return (
+                  <option key={item.label} value={String(item.id)}>
+                    {item.label} ({count})
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
           {tab === "direct" || tab === 1 ? (

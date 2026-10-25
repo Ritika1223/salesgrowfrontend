@@ -15,7 +15,7 @@ const REPORT_TYPES = {
   referral: ["REFERRAL_BONUS"],
 };
 
-function CreditReport({ title, kind, emptyText }) {
+function CreditReport({ title, subtitle, icon, kind, emptyText }) {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -38,10 +38,18 @@ function CreditReport({ title, kind, emptyText }) {
   return (
     <div className="income-history-page">
       <div className="container-fluid">
-        <div className="income-history-card">
-          <div className="income-history-filter-area">
-            <h4>{title}</h4>
+        <div className="prox-live-navbar">
+          <div className="prox-live-navbar-left">
+            <div className="prox-live-logo">
+              <i className={`bi ${icon}`}></i>
+            </div>
+            <div>
+              <h2 className="prox-live-navbar-title">{title}</h2>
+              <p className="prox-live-navbar-subtitle">{subtitle}</p>
+            </div>
           </div>
+        </div>
+        <div className="income-history-card">
           {error && <p>{error}</p>}
           <div className="income-history-table-wrap">
             <table className="income-history-table">
@@ -91,6 +99,8 @@ export default function FundReceivedReport() {
   return (
     <CreditReport
       title="Fund Received Report"
+      subtitle="Money received in your account"
+      icon="bi-box-arrow-in-down"
       kind="fund"
       emptyText="No fund received yet"
     />
@@ -101,6 +111,8 @@ export function ReferralCoinsReport() {
   return (
     <CreditReport
       title="Referral Coins Report"
+      subtitle="Coins earned from your referrals"
+      icon="bi-coin"
       kind="referral"
       emptyText="No referral coins yet"
     />

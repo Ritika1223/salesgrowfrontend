@@ -16005,6 +16005,10 @@ option{
    MAIN WRAPPER
 ========================================= */
 
+.income-history-page{
+  padding-top:16px;
+}
+
 .income-history-card{
   width:100%;
   max-width:100%;
@@ -16120,6 +16124,24 @@ option{
   color:#000;
 }
 
+.team-level-filter{
+  justify-content:flex-start;
+  gap:12px;
+}
+
+.team-level-label{
+  color:#fff;
+  margin:0;
+  font-size:15px;
+  font-weight:600;
+  flex-shrink:0;
+}
+
+.team-level-select{
+  width:100%;
+  max-width:320px;
+}
+
 /* =========================================
    TABLE AREA
 ========================================= */
@@ -16152,7 +16174,7 @@ option{
 }
 
 .income-history-table thead{
-  background: var(--color-gradient);
+  background: var(--color-primary);
 }
 
 .income-history-table th{
@@ -16277,6 +16299,10 @@ option{
     min-width:100%;
     height:48px;
     font-size:13px;
+  }
+
+  .team-level-select{
+    max-width:100%;
   }
 
   /* IMPORTANT FIX */
@@ -16779,25 +16805,34 @@ option{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	gap: 8px;
 	background: #2a0b4d;
 	border: 1px solid rgba(255,255,255,.1);
 	border-radius: 14px;
-	padding: 5px 10px;
+	padding: 8px 10px;
 	margin-top: 12px;
 	color: #fff;
 	font-weight: 600;
-	/* max-width: 350px; */
 	margin-left: auto;
 	margin-right: auto;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 /* UPI Text */
 
 .upi-box span{
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    font-size:15px;
+    min-width: 0;
+    flex: 1;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    white-space: normal;
+    font-size: 15px;
+    line-height: 1.4;
 }
 
 /* Copy Button */
@@ -16816,6 +16851,7 @@ option{
     font-size:13px;
 
     cursor:pointer;
+    flex-shrink: 0;
 
     background:linear-gradient(
         135deg,
@@ -16845,7 +16881,13 @@ option{
 
     .upi-box{
         flex-direction:column;
+        align-items: stretch;
         gap:10px;
+    }
+
+    .upi-box span{
+        width: 100%;
+        text-align: center;
     }
 
     .copy-btn{

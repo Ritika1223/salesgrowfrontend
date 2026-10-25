@@ -19,10 +19,18 @@ export default function FundRequestReport() {
   return (
     <div className="income-history-page">
       <div className="container-fluid">
-        <div className="income-history-card">
-          <div className="income-history-filter-area">
-            <h4>Fund  Request Report</h4>
+        <div className="prox-live-navbar">
+          <div className="prox-live-navbar-left">
+            <div className="prox-live-logo">
+              <i className="bi bi-file-earmark-text-fill"></i>
+            </div>
+            <div>
+              <h2 className="prox-live-navbar-title">Fund Request Report</h2>
+              <p className="prox-live-navbar-subtitle">Your submitted fund requests</p>
+            </div>
           </div>
+        </div>
+        <div className="income-history-card">
           {error && <p>{error}</p>}
           <div className="income-history-table-wrap">
             <table className="income-history-table">
