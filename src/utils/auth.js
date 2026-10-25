@@ -158,3 +158,63 @@ export function appRoute(subPath = "") {
   return clean ? `/${clean}` : "/";
 }
 
+const IDLE_LOGOUT_MS = 2 * 60 * 1000;
+
+export function logoutSession() {
+  try {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("auth_user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("chat_active_peer");
+    sessionStorage.removeItem("chat_active_group");
+  } catch {
+    // ignore storage errors
+  }
+  clearGuest();
+  window.location.href = "/";
+}
+
+/** Log out after 2 minutes with no clicks, typing, or scrolling. */
+export function startIdleLogout() {
+  if (typeof window === "undefined") return () => {};
+  const events = ["mousedown", "mousemove", "keydown", "touchstart", "scroll", "wheel"];
+  let timer = 0;
+  let lastArm = 0;
+
+  function arm() {
+    window.clearTimeout(timer);
+    timer = 0;
+    if (!getToken()) return;
+    lastArm = Date.now();
+    timer = window.setTimeout(() => {
+      if (getToken()) logoutSession();
+    }, IDLE_LOGOUT_MS);
+  }
+
+  function onActivity() {
+    if (!getToken()) return;
+    if (Date.now() - lastArm < 2000) return;
+    arm();
+  }
+
+  function onVisible() {
+    if (document.visibilityState !== "visible" || !getToken()) return;
+    if (Date.now() - lastArm >= IDLE_LOGOUT_MS) logoutSession();
+  }
+
+  arm();
+  events.forEach((name) => window.addEventListener(name, onActivity, { passive: true }));
+  document.addEventListener("visibilitychange", onVisible);
+  const watch = window.setInterval(() => {
+    if (getToken() && !timer) arm();
+  }, 4000);
+
+  return () => {
+    window.clearTimeout(timer);
+    window.clearInterval(watch);
+    events.forEach((name) => window.removeEventListener(name, onActivity));
+    document.removeEventListener("visibilitychange", onVisible);
+  };
+}
+

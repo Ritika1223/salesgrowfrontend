@@ -12,6 +12,8 @@ function isOkFlag(payload) {
 function sumIncomeReport(data) {
   if (!data) return 0;
   const keys = [
+    "SelfIncome",
+    "LevelIncome",
     "SalaryIncome",
     "DirectIncome",
     "RoiToRoiIncome",
@@ -378,6 +380,46 @@ export default function Dashboard() {
                       </p>
                       <p className="stat-text">
                         Referral bonus earned
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="stat stat-orange">
+                <div className="row">
+                  <div className="left">
+                    <div className="chip chip-orange">
+                      <i className="bi bi-graph-up-arrow"></i>
+                    </div>
+
+                    <div>
+                      <h3>ROI Income</h3>
+                      <p className="stat-amount">
+                         {formatMoneyINR(incomeReport?.SelfIncome ?? 0)}
+                      </p>
+                      <p className="stat-text">
+                        1% daily return on your fund
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="stat stat-purple">
+                <div className="row">
+                  <div className="left">
+                    <div className="chip chip-purple">
+                      <i className="bi bi-diagram-3-fill"></i>
+                    </div>
+
+                    <div>
+                      <h3>Level Income</h3>
+                      <p className="stat-amount">
+                         {formatMoneyINR(incomeReport?.LevelIncome ?? 0)}
+                      </p>
+                      <p className="stat-text">
+                        Income from your team levels
                       </p>
                     </div>
                   </div>

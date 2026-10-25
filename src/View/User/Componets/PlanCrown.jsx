@@ -51,16 +51,32 @@ export function PlanDpRing({ plan, className = "", overlay = null, children }) {
   );
 }
 
-export function PlanCrownWithPrice({ plan, className = "" }) {
+export function PlanCrownWithPrice({ plan, planAmount, isActive, className = "" }) {
   const meta = getPlanMeta(plan);
-  if (!meta) return <span className={className}>No Active Plan</span>;
-  return (
-    <span className={`plan-crown-with-price ${className}`.trim()}>
-      <img src={meta.ring} alt="" className="plan-crown-inline" />
-      <span className="plan-crown-name">{meta.label}</span>
-      <span className="plan-crown-price">
-        ₹{Number(meta.price).toLocaleString("en-IN")}
+  if (meta) {
+    return (
+      <span className={`plan-crown-with-price ${className}`.trim()}>
+        <img src={meta.ring} alt="" className="plan-crown-inline" />
+        <span className="plan-crown-name">{meta.label}</span>
+        <span className="plan-crown-price">
+          ₹{Number(meta.price).toLocaleString("en-IN")}
+        </span>
       </span>
-    </span>
-  );
+    );
+  }
+
+  const amount = Number(planAmount);
+  const fundActive = Boolean(isActive) || String(plan || "").toUpperCase() === "INVEST";
+  if (fundActive && Number.isFinite(amount) && amount > 0) {
+    return (
+      <span className={`plan-crown-with-price ${className}`.trim()}>
+        <span className="plan-crown-name">Active</span>
+        <span className="plan-crown-price">
+          ${amount.toLocaleString("en-US")}
+        </span>
+      </span>
+    );
+  }
+
+  return <span className={className}>No Active Plan</span>;
 }

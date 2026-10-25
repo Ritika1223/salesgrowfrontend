@@ -522,7 +522,11 @@ export default function MyProfile() {
                   <div className="info-card">
                     <label>Active Plan</label>
                     <h4 className="pink-text">
-                      <PlanCrownWithPrice plan={profile.plan} />
+                      <PlanCrownWithPrice
+                        plan={profile.plan}
+                        planAmount={profile.planAmount}
+                        isActive={profile.isActive}
+                      />
                     </h4>
                   </div>
 
@@ -547,9 +551,9 @@ export default function MyProfile() {
                   </div>
 
                   <div className="info-card">
-                    <label>Wallet Balance</label>
+                    <label>Coins Balance</label>
                     <h4>
-                      {Number(profile.walletBalance || 0).toLocaleString()}
+                      {Number(profile.walletBalance || 0).toLocaleString()} Coins
                     </h4>
                   </div>
 

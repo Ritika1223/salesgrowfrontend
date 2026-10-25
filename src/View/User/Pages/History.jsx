@@ -9,6 +9,7 @@ const API_BASE_URL = API_BASE;
 
 export const INCOME_REPORTS = [
   { to: "reports/direct", type: "DIRECT_INCOME", label: "Direct Income", icon: "bi-person-plus-fill" },
+  { to: "reports/roi", type: "SELF_INCOME", label: "ROI Income", icon: "bi-graph-up-arrow" },
   { to: "reports/level", type: "LEVEL_INCOME", label: "Level Income", icon: "bi-diagram-3-fill" },
   { to: "reports/roi-to-roi", type: "ROI_TO_ROI", label: "ROI to ROI Income", icon: "bi-arrow-repeat" },
   { to: "reports/salary", type: "SALARY_INCOME", label: "Salary Income", icon: "bi-cash-stack" },
@@ -130,7 +131,9 @@ export default function History({
                 <p className="prox-live-navbar-subtitle">
                   {incomeType === "ROI_TO_ROI"
                     ? "Level 1 20%, Level 2 10%, Level 3–4 5%, Level 5–11 3%, Level 12–21 2% of downline daily ROI"
-                    : "Track this income report"}
+                    : incomeType === "SELF_INCOME"
+                      ? "1% daily ROI, Monday to Saturday, for 365 days"
+                      : "Track this income report"}
                 </p>
               </div>
 
@@ -195,7 +198,7 @@ export default function History({
                           <th>Name</th>
                           {incomeType === "ROI_TO_ROI" && <th>Level</th>}
                           {incomeType === "ROI_TO_ROI" && <th>Share</th>}
-                          <th>{incomeType === "ROI_TO_ROI" ? "Amount ($)" : "Coin"}</th>
+                          <th>Amount ($)</th>
                           <th>Date</th>
                         </tr>
                       </thead>
