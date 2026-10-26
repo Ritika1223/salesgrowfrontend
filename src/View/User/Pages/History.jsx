@@ -102,7 +102,15 @@ export default function History({
         matchesDate = true;
     }
 
-    return matchesSearch && matchesDate;
+    if (!matchesSearch || !matchesDate) return false;
+    if (incomeType !== "DIRECT_INCOME") return true;
+    const level = Number(item.level);
+    const description = String(item.description || "");
+    if (level >= 2) return false;
+    if (/level\s*([2-9]|1\d)/i.test(description)) return false;
+    if (/^ROI to ROI/i.test(description)) return false;
+    if (/level income/i.test(description)) return false;
+    return true;
   });
 
   useEffect(() => {
