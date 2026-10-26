@@ -101,28 +101,26 @@ function activitySummary(item) {
 }
 
 function activityValue(item) {
-  switch (item.type) {
-    case "REFERRAL_BONUS":
-      return <div className="timeline-value green-text">{item.amount ? `+${formatMoneyINR(item.amount)}` : "+0"}</div>;
-    case "BUY_COIN":
-      return <div className="timeline-value green-text">{item.amount ? `+${formatMoneyINR(item.amount)}` : "+0"}</div>;
-    case "TOPUP":
-      return <div className="timeline-value green-text">{item.amount ? `+${formatMoneyINR(item.amount)}` : "+0"}</div>;
-    case "CHAT_SPEND":
-      return <div className="timeline-value green-text">{item.amount ? `-${formatMoneyINR(item.amount)}` : "+0"}</div>;
-    case "CHAT_EARN":
-      return <div className="timeline-value green-text">{item.amount ? `+${formatMoneyINR(item.amount)}` : "+0"}</div>;
-    case "LIVE_TIP":
-      return <div className="timeline-value green-text">{item.amount ? `+${formatMoneyINR(item.amount)}` : "+0"}</div>;
-    case "LEVEL_COMPLETE":
-      return <div className="timeline-value blue-text">Level Up</div>;
-    case "WITHDRAWAL":
-      return <div className="timeline-value orange-text">{item.amount ? `-${formatMoneyINR(item.amount)}` : "-0"}</div>;
-    case "VIP_UNLOCK":
-      return <div className="timeline-value pink-text">VIP</div>;
-    default:
-      return null;
+  if (item.type === "LEVEL_COMPLETE") {
+    return <div className="timeline-value blue-text">Level Up</div>;
   }
+  if (item.type === "VIP_UNLOCK") {
+    return <div className="timeline-value pink-text">VIP</div>;
+  }
+  const raw = Number(item.amount);
+  const amount = Number.isFinite(raw) ? raw : 0;
+  const direction = String(item.direction || "").toLowerCase();
+  const negative =
+    direction === "debit" ||
+    item.type === "CHAT_SPEND" ||
+    item.type === "WITHDRAWAL" ||
+    amount < 0;
+  return (
+    <div className={`timeline-value ${negative ? "minus-text" : "plus-text"}`}>
+      {negative ? "-" : "+"}
+      {formatMoneyINR(Math.abs(amount))}
+    </div>
+  );
 }
 
 export default function Dashboard() {

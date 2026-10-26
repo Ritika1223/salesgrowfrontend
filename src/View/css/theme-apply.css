@@ -752,8 +752,14 @@ select:-webkit-autofill {
   border-radius: 999px !important;
 }
 
-.app > main .activity-ui .timeline-value {
-  color: var(--color-text) !important;
+.app > main .activity-ui .timeline-value.plus-text,
+.app > main .refx-history-right .plus-text {
+  color: #22c55e !important;
+}
+
+.app > main .activity-ui .timeline-value.minus-text,
+.app > main .refx-history-right .minus-text {
+  color: #ff5c7a !important;
 }
 
 /* White cards: dark text. Dark theme panels: white text. */

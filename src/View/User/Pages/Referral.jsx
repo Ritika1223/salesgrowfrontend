@@ -434,7 +434,11 @@ export default function Referral() {
                   <div className="refx-history-right">
 
                     <span>
-                      <img src="/images/coin.png" className="w-30" />+{item.amount}
+                      <img src="/images/coin.png" className="w-30" alt="" />
+                      <span className={Number(item.amount) < 0 ? "minus-text" : "plus-text"}>
+                        {Number(item.amount) < 0 ? "-" : "+"}
+                        {Math.abs(Number(item.amount) || 0)}
+                      </span>
                     </span>
 
                     <small>
