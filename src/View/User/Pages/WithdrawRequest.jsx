@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE } from "../../../config/api";
 import { authJsonHeaders, getToken } from "../../../utils/auth";
@@ -10,6 +10,15 @@ export default function WithdrawRequest() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [withdrawStopped, setWithdrawStopped] = useState(false);
+
+  useEffect(() => {
+    if (!getToken()) return;
+    axios
+      .get(`${API_BASE}/auth/user/me`, { headers: authJsonHeaders() })
+      .then((res) => setWithdrawStopped(Boolean(res.data?.user?.withdrawStopped)))
+      .catch(() => {});
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +26,10 @@ export default function WithdrawRequest() {
     setMessage("");
     if (!getToken()) {
       setError("Please login first");
+      return;
+    }
+    if (withdrawStopped) {
+      setError("Withdrawal is stopped for your account. Please contact admin.");
       return;
     }
 
@@ -60,6 +73,11 @@ export default function WithdrawRequest() {
         </div>
 
         <div className="income-history-card fund-request-form">
+          {withdrawStopped ? (
+            <p className="prox-live-navbar-subtitle">
+              Withdrawal is stopped for your account. Please contact admin.
+            </p>
+          ) : null}
           <form className="payment-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Amount</label>
@@ -73,7 +91,7 @@ export default function WithdrawRequest() {
               />
             </div>
             <div className="form-group">
-              <label>USDT Address</label>
+              <label>USDT Address(BEP20)</label>
               <input
                 type="text"
                 className="wallet-input"
@@ -96,7 +114,7 @@ export default function WithdrawRequest() {
             {error && <div className="wallet-error">{error}</div>}
             {message && <p>{message}</p>}
             <div className="wallet-modal-actions">
-              <button type="submit" className="wallet-submit-btn" disabled={loading}>
+              <button type="submit" className="wallet-submit-btn" disabled={loading || withdrawStopped}>
                 {loading ? "Submitting..." : "Submit"}
               </button>
             </div>

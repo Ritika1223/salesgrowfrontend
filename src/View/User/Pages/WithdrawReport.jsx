@@ -40,7 +40,7 @@ export default function WithdrawReport() {
                   <th>Amount</th>
                   <th>Deduction</th>
                   <th>Payout</th>
-                  <th>USDT Address</th>
+                  <th>USDT Address(BEP20)</th>
                   <th>Status</th>
                   <th>Date</th>
                 </tr>

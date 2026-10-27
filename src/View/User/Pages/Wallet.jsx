@@ -15,18 +15,33 @@ function getImageUrl(url) {
 function historyLabel(item) {
   const type = String(item.type || "");
   const desc = String(item.description || "").trim();
-  if (type === "CHAT_SPEND") return desc || "Coins spent on chat";
-  if (type === "CHAT_EARN") return desc || "Coins earned from chat";
-  if (type === "LIVE_TIP") return "Live chat tip";
-  if (type === "BUY_COIN" || type === "TOPUP") return "Coins added";
-  if (type === "REFERRAL_BONUS") return "Referral bonus";
-  return desc || type || "Transaction";
+  if (type === "WITHDRAW") return desc || "Withdrawal";
+  if (type === "SELF_INCOME") return desc || "ROI Income";
+  if (type === "DIRECT_INCOME") {
+    if (/level\s*([2-9]|1\d)/i.test(desc)) return desc || "Level Income";
+    return desc || "Direct Income";
+  }
+  if (type === "LEVEL_INCOME") return desc || "Level Income";
+  if (type === "ROI_TO_ROI") return desc || "ROI to ROI Income";
+  if (type === "SALARY_INCOME") return desc || "Salary Income";
+  if (type === "POOL_INCOME") return desc || "Pool Income";
+  if (type === "RANK_BONUS") return desc || "Rank Income";
+  if (type === "VIP_INCOME") return desc || "VIP Income";
+  return desc || "Income";
+}
+
+function money(value) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount)) return "0";
+  return amount.toLocaleString("en-IN", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
 }
 
 export default function Wallet() {
   const [userId] = useState(resolveAuthUserId());
-  const [walletAmount, setWalletAmount] = useState(null);
-  const [walletSummary, setWalletSummary] = useState([]);
+  const [income, setIncome] = useState(null);
   const [walletError, setWalletError] = useState("");
   const [loadingWallet, setLoadingWallet] = useState(true);
   const [history, setHistory] = useState([]);
@@ -165,27 +180,22 @@ export default function Wallet() {
 
   useEffect(() => {
     if (!userId) {
-      setWalletAmount(0);
+      setIncome(null);
       setLoadingWallet(false);
       return;
     }
 
     axios
-      .get(`${API_CHAT}/wallet`, {
+      .get(`${API_BASE}/plans/getIncomeReport`, {
         headers: authJsonHeaders(),
       })
       .then((res) => {
-        setWalletAmount(res.data.walletBalance || 0);
-        setWalletSummary(res.data.walletSummary);
-
-        if (res.data.coinsPerRupee) {
-          setCoinsPerRupee(res.data.coinsPerRupee);
-        }
+        setIncome(res.data?.data || null);
       })
       .catch((err) => {
         setWalletError(
           err?.response?.data?.message ||
-          "Wallet loading failed"
+          "Income loading failed"
         );
       })
       .finally(() => setLoadingWallet(false));
@@ -200,13 +210,13 @@ export default function Wallet() {
 
     axios
       .get(
-        `${API_CHAT}/wallet/${userId}/transactions?limit=50`,
+        `${API_BASE}/plans/getWalletTransactions?page=1&limit=50&type=INCOME`,
         { headers: authJsonHeaders() }
       )
       .then((res) => {
         setHistory(
-          Array.isArray(res.data.transactions)
-            ? res.data.transactions
+          Array.isArray(res.data.data)
+            ? res.data.data
             : []
         );
       })
@@ -237,19 +247,6 @@ export default function Wallet() {
           userId,
           rupees,
         }
-      );
-
-      setWalletAmount(
-        res.data.walletBalance || 0
-      );
-
-      const txRes = await axios.get(
-        `${API_CHAT}/wallet/${userId}/transactions?limit=50`,
-        { headers: authJsonHeaders() }
-      );
-
-      setHistory(
-        txRes.data.transactions || []
       );
 
       setShowTopup(false);
@@ -283,11 +280,11 @@ export default function Wallet() {
               <div>
 
                 <h2>
-                  My Wallet
+                  Income Wallet
                 </h2>
 
                 <p>
-                  Total balance and transaction history
+                  Your income balance and income history
                 </p>
 
               </div>
@@ -321,26 +318,31 @@ export default function Wallet() {
                 <div>
 
                   <span className="wallet-balance-label">
-                    Available Balance
+                    Available Income
                   </span>
 
                   <h1 className="wallet-balance-amount">
                     {loadingWallet
                       ? "Loading..."
                       : walletError
-                        ? "0"
-                        : Number(walletAmount || 0).toLocaleString()}
+                        ? "$0"
+                        : `$${money(
+                          Math.max(
+                            0,
+                            Number(income?.TotalEarn || 0) - Number(income?.TotalWithdraw || 0)
+                          )
+                        )}`}
                   </h1>
 
                   <div className="wallet-balance-footer">
 
                     <span className="wallet-badge">
                       <i className="bi bi-check-circle-fill"></i>
-                      Active Wallet
+                      Income Wallet
                     </span>
 
                     <span className="wallet-balance-sub">
-                      Total Balance
+                      Earned minus withdrawn
                     </span>
 
                   </div>
@@ -366,10 +368,15 @@ export default function Wallet() {
                 <i className="bi bi-wallet-fill"></i>
               </div>
 
-              <span>Total Balance</span>
+              <span>Available Income</span>
 
               <h3>
-                {walletAmount || 0}
+                ${money(
+                  Math.max(
+                    0,
+                    Number(income?.TotalEarn || 0) - Number(income?.TotalWithdraw || 0)
+                  )
+                )}
               </h3>
 
             </div>
@@ -384,10 +391,10 @@ export default function Wallet() {
                 <i className="bi bi-arrow-down-circle-fill"></i>
               </div>
 
-              <span>Total Credit</span>
+              <span>Total Earned</span>
 
               <h3>
-                {walletSummary[1]?.total || 0 }
+                ${money(income?.TotalEarn || 0)}
               </h3>
             </div>
 
@@ -401,10 +408,10 @@ export default function Wallet() {
                 <i className="bi bi-arrow-up-circle-fill"></i>
               </div>
 
-              <span>Total Debit</span>
+              <span>Withdrawn</span>
 
               <h3>
-                {Math.abs(walletSummary[0]?.total) || 0 }
+                ${money(income?.TotalWithdraw || 0)}
               </h3>
 
             </div>
@@ -439,11 +446,11 @@ export default function Wallet() {
             <div>
 
               <h2>
-                Transaction History
+                Income History
               </h2>
 
               <p>
-                View your latest wallet activities
+                ROI, direct, level, salary, and withdrawals
               </p>
                       
             </div>
@@ -456,7 +463,7 @@ export default function Wallet() {
 
           {loadingHistory && (
             <div className="wallet-loading">
-              Loading transactions...
+              Loading income...
             </div>
           )}
 
@@ -469,10 +476,10 @@ export default function Wallet() {
                   <i className="bi bi-receipt"></i>
                 </div>
 
-                <h4>No transactions yet</h4>
+                <h4>No income yet</h4>
 
                 <p>
-                  Your wallet history will appear here
+                  Your income history will appear here
                 </p>
 
               </div>
@@ -534,8 +541,7 @@ export default function Wallet() {
                       : "debit-text"
                       }`}
                   >
-                    {isCredit ? "+" : "-"}
-                    {Math.abs(amount).toLocaleString()} Coins
+                    {isCredit ? "+" : "-"}${money(Math.abs(amount))}
                   </div>
 
                 </div>
@@ -583,9 +589,7 @@ export default function Wallet() {
                   <div>
                     <h5>₹{Number(item.amount).toLocaleString()} — {item.transactionNo}</h5>
                     <p>
-                      {item.coins
-                        ? `${Number(item.coins).toLocaleString()} coins`
-                        : item.createdAt?.slice(0, 10)}
+                      {item.createdAt ? String(item.createdAt).slice(0, 10) : ""}
                     </p>
                     <span className={`badge ${statusBadgeClass(item.status)}`}>
                       {item.status || "pending"}

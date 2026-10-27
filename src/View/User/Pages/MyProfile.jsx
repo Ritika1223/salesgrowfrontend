@@ -432,7 +432,7 @@ export default function MyProfile() {
           <div className="profile-wrapper">
             {/* SIDEBAR */}
             <div className="profile-sidebar">
-              <PlanDpRing plan={profile.plan} className="profile-image">
+              <PlanDpRing plan={profile.plan} planAmount={profile.planAmount} className="profile-image">
                 {
                   profile.profilePhoto || editPhotoUrl ? (
                     <img

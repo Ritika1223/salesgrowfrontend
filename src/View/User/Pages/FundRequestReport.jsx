@@ -39,7 +39,7 @@ export default function FundRequestReport() {
                   <th>#</th>
                   <th>Amount</th>
                   <th>Transaction ID</th>
-                  <th>USDT Address</th>
+                  <th>USDT Address(BEP20)</th>
                   <th>Status</th>
                   <th>Date</th>
                 </tr>

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { API_BASE } from "../../../config/api";
-import { PlanDpRing } from "../../User/Componets/PlanCrown";
+import { PlanDpRing, PlanCrownBadge } from "../../User/Componets/PlanCrown";
 
 const API_BASE_URL = API_BASE;
 
@@ -411,7 +411,6 @@ function renderDiscoverChatCard({
     user?.city || user?.location || user?.state || "";
   const age = user?.age || user?.dobAge;
   const initial = (user?.nickname || user?.name || "?").charAt(0).toUpperCase();
-
   return (
     <div
       key={user._id}
@@ -422,6 +421,7 @@ function renderDiscoverChatCard({
     >
       <PlanDpRing
         plan={user?.plan}
+        planAmount={user?.planAmount}
         className="cp-disc-avatar"
         overlay={<span className={`status-dot ${isOnline ? "online" : "offline"}`} />}
       >
@@ -431,6 +431,7 @@ function renderDiscoverChatCard({
       <div className="cp-disc-main">
         <div className="cp-disc-name-row">
           <span className="cp-disc-name">{user.nickname || user.name || "Unknown"}</span>
+          <PlanCrownBadge planAmount={user?.planAmount} />
           {isHost ? <span className="cp-disc-host">HOST</span> : null}
         </div>
 

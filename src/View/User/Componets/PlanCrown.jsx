@@ -27,31 +27,75 @@ export function getPlanMeta(plan) {
   return PLAN_META[key] || null;
 }
 
-export function PlanDpRing({ plan, className = "", overlay = null, children }) {
-  const meta = getPlanMeta(plan);
+/** $50–$249.99 = 1st, $250–$999.99 = 2nd, $1000+ = 3rd. */
+export function crownForAmount(amount) {
+  const value = Number(amount);
+  if (!Number.isFinite(value) || value < 50) return null;
+  if (value < 250) {
+    return { level: 1, label: "1st Crown", ring: "/images/starter2.png" };
+  }
+  if (value < 1000) {
+    return { level: 2, label: "2nd Crown", ring: "/images/royal2.png" };
+  }
+  return { level: 3, label: "3rd Crown", ring: "/images/premium2.png" };
+}
+
+function ringImage(src) {
   return (
-    <div className={`plan-dp-wrap ${meta ? "has-plan-ring" : ""} ${className}`.trim()}>
+    <img
+      src={src}
+      alt=""
+      className="plan-dp-ring"
+      onError={(e) => {
+        const spaced = String(src).replace(/(\w+)2\.png$/i, "$1 2.png");
+        if (e.currentTarget.src.indexOf(spaced) === -1 && !e.currentTarget.dataset.tried) {
+          e.currentTarget.dataset.tried = "1";
+          e.currentTarget.src = spaced;
+        }
+      }}
+    />
+  );
+}
+
+export function PlanDpRing({ plan, planAmount, className = "", overlay = null, children }) {
+  const crown = crownForAmount(planAmount);
+  const meta = crown || getPlanMeta(plan);
+  const ring = crown?.ring || meta?.ring;
+  return (
+    <div className={`plan-dp-wrap ${ring ? "has-plan-ring" : ""} ${className}`.trim()}>
       <div className="plan-dp-inner">{children}</div>
-      {meta ? (
-        <img
-          src={meta.ring}
-          alt=""
-          className="plan-dp-ring"
-          onError={(e) => {
-            const spaced = meta.ring.replace(/(\w+)2\.png$/i, "$1 2.png");
-            if (e.currentTarget.src !== spaced && !e.currentTarget.dataset.tried) {
-              e.currentTarget.dataset.tried = "1";
-              e.currentTarget.src = spaced;
-            }
-          }}
-        />
-      ) : null}
+      {ring ? ringImage(ring) : null}
       {overlay}
     </div>
   );
 }
 
+export function PlanCrownBadge({ planAmount, className = "" }) {
+  const crown = crownForAmount(planAmount);
+  if (!crown) return null;
+  return (
+    <span className={`cp-disc-crown ${className}`.trim()} title={crown.label}>
+      <img src={crown.ring} alt="" />
+      <span>{crown.label}</span>
+    </span>
+  );
+}
+
 export function PlanCrownWithPrice({ plan, planAmount, isActive, className = "" }) {
+  const crown = crownForAmount(planAmount);
+  const amount = Number(planAmount);
+  if (crown) {
+    return (
+      <span className={`plan-crown-with-price ${className}`.trim()}>
+        <img src={crown.ring} alt="" className="plan-crown-inline" />
+        <span className="plan-crown-name">{crown.label}</span>
+        <span className="plan-crown-price">
+          ${amount.toLocaleString("en-US")}
+        </span>
+      </span>
+    );
+  }
+
   const meta = getPlanMeta(plan);
   if (meta) {
     return (
@@ -65,7 +109,6 @@ export function PlanCrownWithPrice({ plan, planAmount, isActive, className = "" 
     );
   }
 
-  const amount = Number(planAmount);
   const fundActive = Boolean(isActive) || String(plan || "").toUpperCase() === "INVEST";
   if (fundActive && Number.isFinite(amount) && amount > 0) {
     return (

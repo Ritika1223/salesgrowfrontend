@@ -61,13 +61,13 @@ export default function Success() {
         <strong>{user.name}</strong>
       </div>
 
-      <div className="detail-row">
+      {/* <div className="detail-row">
         <span>
           <i className="bi bi-person-badge"></i>
           Nick Name
         </span>
         <strong>{user.nickname}</strong>
-      </div>
+      </div> */}
 
       <div className="detail-row">
         <span>

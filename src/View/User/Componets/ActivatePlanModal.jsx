@@ -90,7 +90,7 @@ export default function ActivatePlanModal({
       });
       setDoneMessage(
         res.data?.message ||
-          "Admin will contact you as soon as possible. Confirmation time is maximum 20 minutes."
+          "Admin will contact you as soon as possible."
       );
       setDone(true);
       if (onSubmitted) onSubmitted();

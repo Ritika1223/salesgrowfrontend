@@ -301,6 +301,7 @@ export default function Dashboard() {
 
             <PlanDpRing
               plan={profile?.plan}
+              planAmount={profile?.planAmount}
               className="avatar"
               overlay={<span className="online-status"></span>}
             >
