@@ -542,9 +542,9 @@ export default function Dashboard() {
 
             </div>
 
-            <button className="ghost-btn">
+            <a href="/referral" className="ghost-btn">
               Invite Now →
-            </button>
+            </a>
 
           </div>
 
@@ -745,10 +745,10 @@ export default function Dashboard() {
                       </div>
                       <div className="champion-avatar">
                         <img
-                          src={topThree.third.photo || "/images/user.jpg"}
+                          src={topThree.third.photo || "/images/logo5.jpeg"}
                           alt="User"
                           onError={(e) => {
-                            e.target.src = "/images/user.jpg";
+                            e.target.src = "/images/logo5.jpeg";
                           }}
                         />
 
@@ -803,11 +803,11 @@ export default function Dashboard() {
                         </div>
                         <div className="rank-avatar">
                           <img
-                            src={avatarUrlForName(row.name) || "/images/user.jpg"}
+                            src={avatarUrlForName(row.name) || "/images/logo5.jpeg"}
                             alt={row.name}
                             onError={(e) => {
                               e.target.onerror = null;
-                              e.target.src = "/images/user.jpg";
+                              e.target.src = "/images/logo5.jpeg";
                             }}
                           />
 

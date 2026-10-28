@@ -2,15 +2,15 @@ export const PLAN_META = {
   BASIC: {
     key: "BASIC",
     label: "Starter",
-    image: "/images/starter.png",
-    ring: "/images/starter2.png",
+    image: "/images/royal.png",
+    ring: "/images/royal2.png",
     price: 590,
   },
   STANDARD: {
     key: "STANDARD",
     label: "Royal",
-    image: "/images/royal.png",
-    ring: "/images/royal2.png",
+    image: "/images/starter.png",
+    ring: "/images/starter2.png",
     price: 1180,
   },
   PREMIUM: {
