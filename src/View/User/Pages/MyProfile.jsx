@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { API_AUTH } from "../../../config/api";
-import { resolveAuthUserId, authJsonHeaders, bearerAuthHeader, getGuestProfile } from "../../../utils/auth";
+import { resolveAuthUserId, authJsonHeaders, bearerAuthHeader, getGuestProfile, endLiveOnSignOut } from "../../../utils/auth";
 import { PlanDpRing, PlanCrownWithPrice } from "../Componets/PlanCrown";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "./cropImage";
@@ -293,6 +293,7 @@ export default function MyProfile() {
       await axios.delete(`${API_AUTH}/user/profile`, {
         headers: authJsonHeaders(),
       });
+      await endLiveOnSignOut();
       localStorage.removeItem("token");
       localStorage.removeItem("auth_user");
       localStorage.removeItem("refreshToken");

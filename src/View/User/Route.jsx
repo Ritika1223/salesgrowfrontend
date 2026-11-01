@@ -5,6 +5,7 @@ import LeaderBoard from "./Pages/LeaderBoard";
 import Offers from "./Pages/Offers";
 import Referral from "./Pages/Referral";
 import MyTeam from "./Pages/MyTeam";
+import TeamTree from "./Pages/TeamTree";
 import Support from "./Pages/Support";
 import Wallet from "./Pages/Wallet";
 import React from "react";
@@ -44,6 +45,7 @@ const Routes = [
       { path: "/live/:sessionId", element: <Navigate to="/dashboard" replace /> },
       { path: "/referral", element: <Referral /> },
       { path: "/team", element: <MyTeam /> },
+      { path: "/tree", element: <TeamTree /> },
       { path: "/offers", element: <Offers /> },
       { path: "/wallet", element: <Wallet /> },
       { path: "/plans", element: <Navigate to="/fund/request" replace /> },

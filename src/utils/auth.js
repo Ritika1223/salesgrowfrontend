@@ -1,3 +1,5 @@
+import { API_CHAT } from "../config/api";
+
 export function getToken() {
   try {
     return localStorage.getItem("token") || "";
@@ -158,9 +160,30 @@ export function appRoute(subPath = "") {
   return clean ? `/${clean}` : "/";
 }
 
-const IDLE_LOGOUT_MS = 2 * 60 * 1000;
+const IDLE_LOGOUT_MS = 5 * 60 * 1000;
 
-export function logoutSession() {
+export async function endLiveOnSignOut() {
+  const userId = resolveAuthUserId();
+  if (!userId || !getToken()) return;
+  const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+  const timer = ctrl ? setTimeout(() => ctrl.abort(), 4000) : 0;
+  try {
+    await fetch(`${API_CHAT}/live/sign-out`, {
+      method: "POST",
+      headers: authJsonHeaders(),
+      body: JSON.stringify({ userId }),
+      keepalive: true,
+      signal: ctrl ? ctrl.signal : undefined,
+    });
+  } catch {
+    // Sign-out still finishes if live could not be closed.
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
+export async function logoutSession() {
+  await endLiveOnSignOut();
   try {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
@@ -175,7 +198,7 @@ export function logoutSession() {
   window.location.href = "/";
 }
 
-/** Log out after 2 minutes with no clicks, typing, or scrolling. */
+/** Log out after 5 minutes with no clicks, typing, or scrolling. */
 export function startIdleLogout() {
   if (typeof window === "undefined") return () => {};
   const events = ["mousedown", "mousemove", "keydown", "touchstart", "scroll", "wheel"];

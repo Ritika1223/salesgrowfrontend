@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { clearGuest, isGuest, getGuestProfile } from "../../../utils/auth";
+import { isGuest, getGuestProfile, logoutSession } from "../../../utils/auth";
 import GuestActionGuard from "./GuestActionGuard";
 import { INCOME_REPORTS } from "../Pages/History";
 
@@ -16,15 +16,7 @@ function useIsMobile() {
 }
 
 function handleLogout() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("refreshToken"); // if you use refresh tokens
-  localStorage.removeItem("auth_user");
-  sessionStorage.removeItem("token");
-  sessionStorage.removeItem("chat_active_peer");
-  sessionStorage.removeItem("chat_active_group");
-  clearGuest();
-  
-  window.location.href = "/";
+  logoutSession();
 }
 
 const NAV_LINKS = [
@@ -47,6 +39,12 @@ const NAV_LINKS = [
   to: "team",
   icon: <i className="bi bi-diagram-3-fill"></i>,
   label: "My Team",
+},
+
+{
+  to: "tree",
+  icon: <i className="bi bi-diagram-2-fill"></i>,
+  label: "Team Tree",
 },
 
 // {
