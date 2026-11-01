@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { API_AUTH } from "../../../config/api";
 import { authJsonHeaders } from "../../../utils/auth";
@@ -28,48 +28,120 @@ function buildTree(levels, rootId) {
   return attach(rootId);
 }
 
-function formatJoined(value) {
-  if (!value) return "—";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "—";
-  return date.toLocaleDateString("en-IN");
-}
-
 function displayName(node) {
   return node?.nickname || node?.name || "Member";
 }
 
-function OrgNode({ node, parentName, depth, selectedId, onSelect }) {
-  const name = displayName(node);
-  const selected = selectedId === node.id;
+function formatJoined(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("en-IN");
+}
+
+function usePageSize() {
+  const query = "(max-width: 767px)";
+  const [size, setSize] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia(query).matches ? 3 : 5
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const update = () => setSize(media.matches ? 3 : 5);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return size;
+}
+
+function PersonHead({ person }) {
+  const active = Boolean(person?.isActive);
   return (
-    <li>
-      <button
-        type="button"
-        className={`org-node depth-${Math.min(depth, 6)}${selected ? " is-selected" : ""}${node.isActive ? "" : " is-inactive"}`}
-        onClick={() => onSelect(node, parentName)}
-        title={name}
-      >
-        <span className="org-avatar" aria-hidden="true">
-          <i className="bi bi-person-fill"></i>
-        </span>
-        <span className="org-name">{name}</span>
-      </button>
-      {node.children?.length ? (
-        <ul>
-          {node.children.map((child) => (
-            <OrgNode
-              key={child.id}
-              node={child}
-              parentName={name}
-              depth={depth + 1}
-              selectedId={selectedId}
+    <div className="dt-root">
+      <span className={`dt-avatar dt-avatar-root ${active ? "is-active" : "is-inactive"}`} aria-hidden="true">
+        <i className="bi bi-person-fill"></i>
+      </span>
+      <strong>{displayName(person)}</strong>
+      {person?.referralCode ? <span>{person.referralCode}</span> : null}
+    </div>
+  );
+}
+
+function LevelTree({ person, members, onSelect }) {
+  const pageSize = usePageSize();
+  const [start, setStart] = useState(0);
+  const [opened, setOpened] = useState(null);
+
+  useEffect(() => {
+    setStart(0);
+    setOpened(null);
+  }, [pageSize, person?.id]);
+
+  const visible = members.slice(start, start + pageSize);
+  const hasMore = start + pageSize < members.length;
+
+  const openMember = (member) => {
+    onSelect(member);
+    setOpened((current) => (current?.id === member.id ? null : member));
+  };
+
+  return (
+    <div className="dt-branch">
+      <PersonHead person={person} />
+      {members.length > 0 ? (
+        <div className="dt-level">
+          <div className="dt-level-line">
+            {start > 0 && (
+              <button
+                type="button"
+                className="dt-page dt-page-prev"
+                onClick={() => setStart((value) => Math.max(0, value - pageSize))}
+              >
+                ‹
+              </button>
+            )}
+            <div className="dt-bracket">
+              <div className="dt-nodes">
+                {visible.map((member) => (
+                  <button
+                    type="button"
+                    key={member.id}
+                    className={`dt-person${member.isActive ? " is-active" : " is-inactive"}${opened?.id === member.id ? " is-open" : ""}`}
+                    onClick={() => openMember(member)}
+                  >
+                    <span className="dt-avatar" aria-hidden="true">
+                      <i className="bi bi-person-fill"></i>
+                    </span>
+                    <span className="dt-person-name">{displayName(member)}</span>
+                    {member.referralCode ? <span className="dt-id">{member.referralCode}</span> : null}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {hasMore && (
+              <button
+                type="button"
+                className="dt-page dt-page-more"
+                onClick={() => setStart((value) => value + pageSize)}
+              >
+                More
+              </button>
+            )}
+          </div>
+          {opened ? (
+            <LevelTree
+              person={opened}
+              members={opened.children || []}
               onSelect={onSelect}
             />
-          ))}
-        </ul>
-      ) : null}
-    </li>
+          ) : null}
+        </div>
+      ) : (
+        <p className="team-tree-empty">No one has joined under {displayName(person)}.</p>
+      )}
+    </div>
   );
 }
 
@@ -79,7 +151,6 @@ export default function TeamTree() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selected, setSelected] = useState(null);
-  const chartRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -107,31 +178,22 @@ export default function TeamTree() {
   );
 
   const myName = me?.nickname || me?.name || "You";
-  const total = levels.reduce((sum, row) => sum + (row.members?.length || 0), 0);
-  const hasParentLinks = levels.some((row) =>
-    (row.members || []).some((member) => member.referredBy),
-  );
-  const chartChildren = hasParentLinks && roots.length > 0
-    ? roots
-    : (levels.find((row) => row.level === 1)?.members || []).map((member) => ({
+  const directs = useMemo(() => {
+    const linked = roots.length > 0 && levels.some((row) =>
+      (row.members || []).some((member) => member.referredBy),
+    );
+    if (linked) return roots;
+    const levelOne = levels.find((row) => row.level === 1)?.members || [];
+    return levelOne.map((member) => ({
       ...member,
       id: String(member.id),
       level: 1,
       children: [],
     }));
-
-  useEffect(() => {
-    const el = chartRef.current;
-    if (!el) return;
-    el.scrollLeft = Math.max(0, (el.scrollWidth - el.clientWidth) / 2);
-  }, [loading, total, hasParentLinks, roots]);
-
-  const selectMember = (node, parentName) => {
-    setSelected({ node, parentName });
-  };
+  }, [levels, roots]);
 
   return (
-    <div className="income-history-page">
+    <div className="income-history-page team-tree-page">
       <div className="container-fluid">
         <div className="prox-live-navbar">
           <div className="prox-live-navbar-left">
@@ -141,86 +203,42 @@ export default function TeamTree() {
             <div>
               <h2 className="prox-live-navbar-title">Team Tree</h2>
               <p className="prox-live-navbar-subtitle">
-                Your team, with each person joined under the member who referred them
+                Direct team under you. Open a member to see who joined under them.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="income-history-card org-chart-card">
-          <div className="team-tree-summary">
-            <span className="team-tree-chip">You · {myName}</span>
-            <span className="team-tree-chip">{total} in team</span>
-            {levels.map((row) => (
-              <span key={row.level} className="team-tree-chip">
-                Level {row.level}: {row.members?.length || 0}
-              </span>
-            ))}
-          </div>
+        {loading && <p>Loading team tree...</p>}
+        {error && <div className="app-alert error-alert">{error}</div>}
 
-          {loading && <p>Loading team tree...</p>}
-          {error && <div className="app-alert error-alert">{error}</div>}
+        {!loading && !error && (
+          <div className="dt-tree">
+            <LevelTree
+              person={{
+                id: me?.id || "me",
+                name: myName,
+                nickname: me?.nickname || "",
+                referralCode: me?.referralCode || "",
+                isActive: Boolean(me?.isActive),
+              }}
+              members={directs}
+              onSelect={setSelected}
+            />
 
-          {!loading && !error && total === 0 && (
-            <p className="team-tree-empty">No one has joined under you yet.</p>
-          )}
-
-          {!loading && !error && total > 0 && (
-            <div className="org-chart-wrap">
-              <div className="org-chart" ref={chartRef}>
-                <ul>
-                  <li>
-                    <button
-                      type="button"
-                      className={`org-node depth-0${selected?.node?.id === "me" ? " is-selected" : ""}`}
-                      onClick={() => selectMember({
-                        id: "me",
-                        name: myName,
-                        level: 0,
-                        referralCode: me?.referralCode || "",
-                        isActive: true,
-                      }, "")}
-                    >
-                      <span className="org-avatar" aria-hidden="true">
-                        <i className="bi bi-person-fill"></i>
-                      </span>
-                      <span className="org-name">{myName}</span>
-                    </button>
-                    {chartChildren.length > 0 && (
-                      <ul>
-                        {chartChildren.map((node) => (
-                          <OrgNode
-                            key={node.id}
-                            node={node}
-                            parentName={myName}
-                            depth={1}
-                            selectedId={selected?.node?.id}
-                            onSelect={selectMember}
-                          />
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                </ul>
+            {/* {selected && (
+              <div className="org-detail">
+                <strong>{displayName(selected)}</strong>
+                <span>Level {selected.level || 1}</span>
+                {selected.phone ? <span>{selected.phone}</span> : null}
+                {selected.referralCode ? <span>Code {selected.referralCode}</span> : null}
+                {selected.plan ? <span>{selected.plan}</span> : null}
+                <span>{selected.isActive ? "Active" : "Inactive"}</span>
+                {formatJoined(selected.joinedAt) ? <span>Joined {formatJoined(selected.joinedAt)}</span> : null}
               </div>
-
-              {selected?.node && (
-                <div className="org-detail">
-                  <strong>{displayName(selected.node)}</strong>
-                  <span>{selected.node.level ? `Level ${selected.node.level}` : "You"}</span>
-                  {selected.parentName ? <span>Joined under {selected.parentName}</span> : null}
-                  {selected.node.phone ? <span>{selected.node.phone}</span> : null}
-                  {selected.node.referralCode ? <span>Code {selected.node.referralCode}</span> : null}
-                  {selected.node.plan ? <span>{selected.node.plan}</span> : null}
-                  {selected.node.level ? (
-                    <span>{selected.node.isActive ? "Active" : "Inactive"}</span>
-                  ) : null}
-                  {selected.node.joinedAt ? <span>Joined {formatJoined(selected.node.joinedAt)}</span> : null}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+            )} */}
+          </div>
+        )}
       </div>
     </div>
   );
