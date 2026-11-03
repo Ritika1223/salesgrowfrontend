@@ -102,7 +102,7 @@ export default function MyTeam() {
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Phone</th>
+                    {/* <th>Phone</th> */}
                     <th>Referral Code</th>
                     <th>Plan</th>
                     <th>Status</th>
@@ -115,7 +115,7 @@ export default function MyTeam() {
                       <tr key={member.id}>
                         <td>{index + 1}</td>
                         <td>{member.name || member.nickname || "-"}</td>
-                        <td>{member.phone || "-"}</td>
+                        {/* <td>{member.phone || "-"}</td> */}
                         <td>{member.referralCode || "-"}</td>
                         <td>{member.plan || "-"}</td>
                         <td>{member.isActive ? "Active" : "Inactive"}</td>
