@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import websiteRoute from './View/Website/Route'
 import userRoute from './View/User/Route'
-// import adminRoute from './View/Admin/Route'
 import { startIdleLogout } from './utils/auth';
 import './View/css/theme.css'
 import './View/css/style.css'
@@ -24,7 +23,6 @@ const App = () => {
         <RouterProvider router={createBrowserRouter([
           ...websiteRoute,
           ...userRoute,
-          // ...adminRoute,
         ])} />
   </>)
 }
