@@ -18,6 +18,26 @@ export default function Login() {
 const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
+    const hash = window.location.hash || "";
+    const marker = "#adminAccess=";
+    if (hash.startsWith(marker)) {
+      try {
+        const parsed = JSON.parse(decodeURIComponent(hash.slice(marker.length)));
+        if (parsed?.token) {
+          localStorage.setItem("token", parsed.token);
+          if (parsed.user) {
+            localStorage.setItem("auth_user", JSON.stringify(parsed.user));
+          }
+          clearGuest();
+          window.history.replaceState(null, "", "/login");
+          navigate("/dashboard", { replace: true });
+          return;
+        }
+      } catch {
+        window.history.replaceState(null, "", "/login");
+      }
+    }
+
     if (isLoggedIn()) {
       navigate("/dashboard", { replace: true });
     }
