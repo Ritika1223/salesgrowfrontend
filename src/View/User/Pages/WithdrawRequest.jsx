@@ -1,7 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE } from "../../../config/api";
 import { authJsonHeaders, getToken } from "../../../utils/auth";
+
+function money(value) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount)) return "0";
+  return amount.toLocaleString("en-IN", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+}
+
+function inr(value) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount)) return "₹0";
+  return amount.toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2,
+  });
+}
 
 export default function WithdrawRequest() {
   const [amount, setAmount] = useState("");
@@ -11,13 +30,63 @@ export default function WithdrawRequest() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [withdrawStopped, setWithdrawStopped] = useState(false);
+  const [summary, setSummary] = useState({
+    total: 0,
+    withdrawn: 0,
+    pending: 0,
+  });
+  const [summaryLoading, setSummaryLoading] = useState(true);
+  const [usdToInr, setUsdToInr] = useState(null);
+  const [rateError, setRateError] = useState("");
+
+  const loadSummary = useCallback(() => {
+    if (!getToken()) {
+      setSummaryLoading(false);
+      return;
+    }
+    setSummaryLoading(true);
+    Promise.allSettled([
+      axios.get(`${API_BASE}/plans/getIncomeReport`, { headers: authJsonHeaders() }),
+      axios.get(`${API_BASE}/plans/withdraw/history`, { headers: authJsonHeaders() }),
+      axios.get(`${API_BASE}/auth/user/me`, { headers: authJsonHeaders() }),
+    ]).then(([incomeRes, historyRes, meRes]) => {
+      const income = incomeRes.status === "fulfilled" ? incomeRes.value.data?.data : null;
+      const rows = historyRes.status === "fulfilled" && Array.isArray(historyRes.value.data?.data)
+        ? historyRes.value.data.data
+        : [];
+      const pending = rows
+        .filter((row) => String(row?.status || "").toLowerCase() === "pending")
+        .reduce((sum, row) => sum + Number(row.amount || 0), 0);
+      setSummary({
+        total: Number(income?.TotalEarn || 0),
+        withdrawn: Number(income?.TotalWithdraw || 0),
+        pending,
+      });
+      if (meRes.status === "fulfilled") {
+        setWithdrawStopped(Boolean(meRes.value.data?.user?.withdrawStopped));
+      }
+    }).finally(() => setSummaryLoading(false));
+  }, []);
 
   useEffect(() => {
-    if (!getToken()) return;
-    axios
-      .get(`${API_BASE}/auth/user/me`, { headers: authJsonHeaders() })
-      .then((res) => setWithdrawStopped(Boolean(res.data?.user?.withdrawStopped)))
-      .catch(() => {});
+    loadSummary();
+  }, [loadSummary]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("https://open.er-api.com/v6/latest/USD")
+      .then((res) => res.json())
+      .then((data) => {
+        const rate = Number(data?.rates?.INR);
+        if (!cancelled && Number.isFinite(rate) && rate > 0) setUsdToInr(rate);
+        else if (!cancelled) setRateError("INR rate is unavailable");
+      })
+      .catch(() => {
+        if (!cancelled) setRateError("INR rate is unavailable");
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleSubmit = async (e) => {
@@ -48,12 +117,23 @@ export default function WithdrawRequest() {
       setAmount("");
       setUpiId("");
       setTransactionPassword("");
+      loadSummary();
     } catch (err) {
       setError(err?.response?.data?.message || "Could not submit withdrawal");
     } finally {
       setLoading(false);
     }
   };
+
+  const total = Number(summary.total) || 0;
+  const withdrawn = Number(summary.withdrawn) || 0;
+  const pending = Number(summary.pending) || 0;
+  const available = Math.max(0, total - withdrawn - pending);
+  const usdtAmount = Number(amount);
+  const inrAmount =
+    Number.isFinite(usdtAmount) && usdtAmount > 0 && usdToInr
+      ? usdtAmount * usdToInr
+      : 0;
 
   return (
     <div className="modern-plans-page">
@@ -78,17 +158,52 @@ export default function WithdrawRequest() {
               Withdrawal is stopped for your account. Please contact admin.
             </p>
           ) : null}
+          <div className="withdraw-summary">
+            <div className="withdraw-summary-item">
+              <span>Total amount</span>
+              <strong>{summaryLoading ? "..." : `$${money(total)}`}</strong>
+            </div>
+            <div className="withdraw-summary-item">
+              <span>Available balance</span>
+              <strong>{summaryLoading ? "..." : `$${money(available)}`}</strong>
+            </div>
+            <div className="withdraw-summary-item">
+              <span>Withdrawn</span>
+              <strong>{summaryLoading ? "..." : `$${money(withdrawn)}`}</strong>
+            </div>
+            <div className="withdraw-summary-item">
+              <span>Pending</span>
+              <strong>{summaryLoading ? "..." : `$${money(pending)}`}</strong>
+            </div>
+          </div>
           <form className="payment-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Amount</label>
+              <label>Amount (USDT)</label>
               <input
                 type="number"
                 className="wallet-input"
                 placeholder="Minimum $5"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
+                min="5"
+                step="0.01"
                 required
               />
+            </div>
+            <div className="form-group">
+              <label>Amount in INR</label>
+              <input
+                type="text"
+                className="wallet-input"
+                value={usdtAmount > 0 && usdToInr ? inr(inrAmount) : ""}
+                placeholder={rateError || "Enter USDT to see INR"}
+                readOnly
+              />
+              <p className="withdraw-inr-note">
+                {usdToInr
+                  ? `1 USDT = ${inr(usdToInr)}`
+                  : rateError || "Loading INR rate..."}
+              </p>
             </div>
             <div className="form-group">
               <label>USDT Address(BEP20)</label>

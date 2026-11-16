@@ -178,6 +178,42 @@ aside.sidebar {
   max-width: 560px;
 }
 
+.withdraw-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.withdraw-summary-item {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+  border: 1px solid var(--color-line);
+}
+
+.withdraw-summary-item span {
+  display: block;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.withdraw-summary-item strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+.fund-request-form .wallet-input[readonly] {
+  cursor: default;
+}
+
+.withdraw-inr-note {
+  margin: 6px 0 0;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
 .fund-request-form .wallet-input,
 .fund-request-form label,
 .fund-request-form p {
