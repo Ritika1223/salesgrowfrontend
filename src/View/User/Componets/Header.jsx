@@ -26,7 +26,11 @@ const NAV_LINKS = [
   label: "Dashboard",
 },
 
-
+{
+  to: "https://kakowa.online",
+  icon: <i className="bi bi-chat-fill"></i>,
+  label: "Chat Now",
+},
 
 
 {
@@ -187,10 +191,13 @@ export default function Header() {
   const guest = isGuest();
   const guestProfile = guest ? getGuestProfile() : null;
 
-  const hrefFor = (to) => (to.startsWith("/") ? to : `/${to}`);
+  const hrefFor = (to) => {
+    if (/^https?:\/\//i.test(to)) return to;
+    return to.startsWith("/") ? to : `/${to}`;
+  };
 
   const linkActive = (to) => {
-    if (!to) return false;
+    if (!to || /^https?:\/\//i.test(to)) return false;
     const windowPath = window.location.pathname.replace(/\/$/, "");
     const linkPath = hrefFor(to).replace(/\/$/, "");
     if (linkPath === "/dashboard") return windowPath === linkPath;

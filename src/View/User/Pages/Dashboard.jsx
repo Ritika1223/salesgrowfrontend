@@ -801,7 +801,7 @@ export default function Dashboard() {
                         <div className="rank-number">
                           {row.rankPosition}
                         </div>
-                        <div className="rank-avatar">
+                        {/* <div className="rank-avatar">
                           <img
                             src={avatarUrlForName(row.name) || "/images/logo5.jpeg"}
                             alt={row.name}
@@ -811,7 +811,7 @@ export default function Dashboard() {
                             }}
                           />
 
-                        </div>
+                        </div> */}
                         <div className="rank-user">
                           <strong>{row.name}</strong>
                           <span>{leaderRanksLine(row)}</span>

@@ -12,16 +12,6 @@ function money(value) {
   });
 }
 
-function inr(value) {
-  const amount = Number(value);
-  if (!Number.isFinite(amount)) return "₹0";
-  return amount.toLocaleString("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 2,
-  });
-}
-
 export default function WithdrawRequest() {
   const [amount, setAmount] = useState("");
   const [upiId, setUpiId] = useState("");
@@ -36,8 +26,6 @@ export default function WithdrawRequest() {
     pending: 0,
   });
   const [summaryLoading, setSummaryLoading] = useState(true);
-  const [usdToInr, setUsdToInr] = useState(null);
-  const [rateError, setRateError] = useState("");
 
   const loadSummary = useCallback(() => {
     if (!getToken()) {
@@ -71,23 +59,6 @@ export default function WithdrawRequest() {
   useEffect(() => {
     loadSummary();
   }, [loadSummary]);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("https://open.er-api.com/v6/latest/USD")
-      .then((res) => res.json())
-      .then((data) => {
-        const rate = Number(data?.rates?.INR);
-        if (!cancelled && Number.isFinite(rate) && rate > 0) setUsdToInr(rate);
-        else if (!cancelled) setRateError("INR rate is unavailable");
-      })
-      .catch(() => {
-        if (!cancelled) setRateError("INR rate is unavailable");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,9 +101,13 @@ export default function WithdrawRequest() {
   const pending = Number(summary.pending) || 0;
   const available = Math.max(0, total - withdrawn - pending);
   const usdtAmount = Number(amount);
-  const inrAmount =
-    Number.isFinite(usdtAmount) && usdtAmount > 0 && usdToInr
-      ? usdtAmount * usdToInr
+  const deduction =
+    Number.isFinite(usdtAmount) && usdtAmount > 0
+      ? Math.round(usdtAmount * 10) / 100
+      : 0;
+  const payout =
+    deduction > 0
+      ? Math.round((usdtAmount - deduction) * 100) / 100
       : 0;
 
   return (
@@ -191,19 +166,14 @@ export default function WithdrawRequest() {
               />
             </div>
             <div className="form-group">
-              <label>Amount in INR</label>
+              <label>USDT after 10% charge</label>
               <input
                 type="text"
                 className="wallet-input"
-                value={usdtAmount > 0 && usdToInr ? inr(inrAmount) : ""}
-                placeholder={rateError || "Enter USDT to see INR"}
+                value={payout > 0 ? `$${money(payout)}` : ""}
+                placeholder="Enter USDT to see amount after 10% charge"
                 readOnly
               />
-              <p className="withdraw-inr-note">
-                {usdToInr
-                  ? `1 USDT = ${inr(usdToInr)}`
-                  : rateError || "Loading INR rate..."}
-              </p>
             </div>
             <div className="form-group">
               <label>USDT Address(BEP20)</label>

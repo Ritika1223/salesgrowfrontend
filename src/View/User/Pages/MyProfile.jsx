@@ -419,13 +419,13 @@ export default function MyProfile() {
               <button className="prox-live-gradient-btn" onClick={openEditModal}>
                 Edit Profile
               </button>
-              <button
+              {/* <button
                 type="button"
                 className="prox-live-gradient-btn profile-delete-btn"
                 onClick={handleDeleteProfile}
               >
                 Delete Profile
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -674,7 +674,7 @@ export default function MyProfile() {
               </div>
 
               {/* NAME */}
-              <div className="cp-form-group">
+              {/* <div className="cp-form-group">
                 <label>Name</label>
                 <input
                   type="text"
@@ -685,7 +685,7 @@ export default function MyProfile() {
                     )
                   }
                 />
-              </div>
+              </div> */}
 
               {/* NICKNAME */}
               <div className="cp-form-group">
