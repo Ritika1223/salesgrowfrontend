@@ -51,6 +51,12 @@ const NAV_LINKS = [
   label: "Team Tree",
 },
 
+{
+  to: "project-pdf",
+  icon: <i className="bi bi-file-earmark-pdf-fill"></i>,
+  label: "Project PDF",
+},
+
 // {
 //   to: "wallet",
 //   icon: <i className="bi bi-wallet2"></i>,

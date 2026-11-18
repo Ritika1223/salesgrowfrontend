@@ -16,6 +16,7 @@ import FundReceivedReport, { ReferralCoinsReport } from "./Pages/FundReceivedRep
 import AccountSecurity from "./Pages/AccountSecurity";
 import WithdrawRequest from "./Pages/WithdrawRequest";
 import WithdrawReport from "./Pages/WithdrawReport";
+import ProjectPdf from "./Pages/ProjectPdf";
 import { Navigate, useLocation } from "react-router-dom";
 import LevelIncome from "./Pages/LevelIncome";
 import { appRoute } from "../../utils/auth";
@@ -58,6 +59,7 @@ const Routes = [
       { path: "/level", element: <LevelIncome /> },
       { path: "/pool/level", element: <Navigate to="/dashboard" replace /> },
       { path: "/support", element: <Support /> },
+      { path: "/project-pdf", element: <ProjectPdf /> },
       { path: "/leaderboard", element: <LeaderBoard /> },
       ...INCOME_REPORTS.map((report) => ({
         path: `/${report.to}`,

@@ -3,9 +3,14 @@ import axios from "axios";
 import { API_BASE } from "../../../config/api";
 import { authJsonHeaders, getToken } from "../../../utils/auth";
 
-function money(value) {
+function toCents(value) {
   const amount = Number(value);
-  if (!Number.isFinite(amount)) return "0";
+  if (!Number.isFinite(amount)) return 0;
+  return Math.round(amount * 100);
+}
+
+function money(value) {
+  const amount = toCents(value) / 100;
   return amount.toLocaleString("en-IN", {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
@@ -72,6 +77,17 @@ export default function WithdrawRequest() {
       setError("Withdrawal is stopped for your account. Please contact admin.");
       return;
     }
+    const requestCents = toCents(amount);
+    const availableCents = Math.max(
+      0,
+      toCents(summary.total) - toCents(summary.withdrawn) - toCents(summary.pending)
+    );
+    if (requestCents > availableCents) {
+      setError(
+        `Not enough income balance. Available is $${money(availableCents / 100)}.`
+      );
+      return;
+    }
 
     try {
       setLoading(true);
@@ -96,10 +112,10 @@ export default function WithdrawRequest() {
     }
   };
 
-  const total = Number(summary.total) || 0;
-  const withdrawn = Number(summary.withdrawn) || 0;
-  const pending = Number(summary.pending) || 0;
-  const available = Math.max(0, total - withdrawn - pending);
+  const total = toCents(summary.total) / 100;
+  const withdrawn = toCents(summary.withdrawn) / 100;
+  const pending = toCents(summary.pending) / 100;
+  const available = Math.max(0, toCents(total) - toCents(withdrawn) - toCents(pending)) / 100;
   const usdtAmount = Number(amount);
   const deduction =
     Number.isFinite(usdtAmount) && usdtAmount > 0
@@ -135,12 +151,12 @@ export default function WithdrawRequest() {
           ) : null}
           <div className="withdraw-summary">
             <div className="withdraw-summary-item">
-              <span>Total amount</span>
-              <strong>{summaryLoading ? "..." : `$${money(total)}`}</strong>
-            </div>
-            <div className="withdraw-summary-item">
               <span>Available balance</span>
               <strong>{summaryLoading ? "..." : `$${money(available)}`}</strong>
+            </div>
+            <div className="withdraw-summary-item">
+              <span>Total amount</span>
+              <strong>{summaryLoading ? "..." : `$${money(total)}`}</strong>
             </div>
             <div className="withdraw-summary-item">
               <span>Withdrawn</span>
@@ -151,6 +167,11 @@ export default function WithdrawRequest() {
               <strong>{summaryLoading ? "..." : `$${money(pending)}`}</strong>
             </div>
           </div>
+          {!summaryLoading && pending > 0 ? (
+            <p className="withdraw-inr-note">
+              ${money(pending)} is already held by a pending withdrawal, so it is not part of the available balance.
+            </p>
+          ) : null}
           <form className="payment-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Amount (USDT)</label>
